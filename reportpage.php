@@ -9,10 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstNameErr = "Name is required";
   }
 
-  $lastName = trim($_POST['lastName']);
+  $telephone = trim($_POST['tel']);
   if (empty($lastName) || !preg_match("/^[0-9+]*$/", $lastName)) {
     $er++;
-    $lastNameErr = "Valid Telephone Number is required";
+    $telephoneErr = "Valid Telephone Number is required";
   }
 
   $location = trim($_POST['location']);
