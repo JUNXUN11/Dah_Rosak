@@ -1,13 +1,12 @@
 <?php
 
+if(isset($_SESSION["id"]) && isset($_SESSION["email"] )){
+    
 
+    $id = $_SESSION["id"];
+    $email = $_SESSION["email"];
+    $username = $_SESSION["name"];
 
-
-if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
-    ?>
-
-<?php 
-  $email = $_SESSION["email"];
 ?>
 
 
@@ -26,7 +25,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
 <li class="nav-item dropdown no-arrow">
     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $email; ?></span>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo htmlspecialchars($username); ?></span>
         <img class="img-profile rounded-circle"
             src="img/undraw_profile.svg">
     </a>
