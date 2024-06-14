@@ -57,7 +57,10 @@ try {
 
     // Commit transaction if all queries succeed
     mysqli_commit($conn);
-    echo "Data inserted into all tables successfully";
+    $successMessage = "Damage report added successfully!";
+    echo "<script>alert('$successMessage'); window.location.href = 'index.php';</script>";
+    exit;
+    
 } catch (Exception $e) {
     // Rollback transaction if any query fails
     mysqli_rollback($conn);

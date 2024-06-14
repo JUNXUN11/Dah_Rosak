@@ -3,14 +3,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $er = 0;
   
   // Sanitize and validate input
-  $firstName = trim($_POST['firstName']);
+  $firstName = trim($_POST['firstname']);
   if (empty($firstName)) {
     $er++;
     $firstNameErr = "Name is required";
   }
 
   $telephone = trim($_POST['tel']);
-  if (empty($lastName) || !preg_match("/^[0-9+]*$/", $lastName)) {
+  if (empty($telephone) || !preg_match("/^[0-9+]*$/", $telephone)) {
     $er++;
     $telephoneErr = "Valid Telephone Number is required";
   }
@@ -27,13 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $floorErr = "Floor selection is required";
   }
 
-  $damageType = trim($_POST['damageType']);
+  $damageType = trim($_POST['damage_type']);
   if (empty($damageType)) {
     $er++;
     $damageTypeErr = "Damage type selection is required";
   }
 
-  $roomNumber = trim($_POST['roomNumber']);
+  $roomNumber = trim($_POST['roomNum']);
   if (empty($roomNumber)) {
     $er++;
     $roomNumberErr = "Room or Toilet Number is required";
@@ -49,30 +49,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Service Details - QuickStart Bootstrap Template</title>
+  <title>Damage Report Form</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-   <!-- Favicons -->
-   <link href="assets/img/favicon.png" rel="icon">
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
@@ -94,9 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </style>
 </head>
 
-<?php include 'header.php';?>
-
-
 <body class="bg-light">
 
   <div class="container">
@@ -107,16 +96,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="lead"></p>
       </div>
 
-      <div class=" row g-5">
+      <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
           <img src="assets/img/features-3.jpg" alt="" style="width: 450px; height: 450px">
         </div>
 
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">Personal Information</h4>
-          
-          
-          <form method="post" action="insert_report.php"  class="needs-validation" novalidate onsubmit="return validateForm()">
+
+          <form method="post" action="insert_report.php" class="needs-validation" novalidate>
             <div class="row g-3">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">Name</label>
@@ -144,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <div class="col-md-5">
                 <label for="floor" class="form-label">Floor</label>
-                <select class="form-select"  name="floor"  id="floor" required>
+                <select class="form-select" name="floor" id="floor" required>
                   <option value="">Choose...</option>
                   <option value="G">Floor G</option>
                   <option value="1">Floor 1</option>
@@ -158,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <div class="col-md-5">
                 <label for="damageType" class="form-label">Select Damage Type</label>
-                <select class="form-select"  name="damage_type"  id="damageType" required>
+                <select class="form-select" name="damage_type" id="damageType" required>
                   <option value="">Choose...</option>
                   <option value="civil">Civil Damage</option>
                   <option value="electrical">Electrical Damage</option>
@@ -171,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <div class="col-12">
                 <label for="roomNumber" class="form-label">Room Number <span class="text-muted">e.g., 2-88</span></label>
-                <input type="text"  name="roomNum" class="form-control" id="roomNumber" placeholder="e.g., 2-88" required>
+                <input type="text" name="roomNum" class="form-control" id="roomNumber" placeholder="e.g., 2-88" required>
                 <div class="invalid-feedback">
                   Please enter a valid room or toilet number.
                 </div>
@@ -202,80 +190,88 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <hr class="my-4">
 
-              <button class="w-100 btn btn-primary btn-lg" type="submit">Continue</button>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="confirmSubmission()">Continue</button>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </main>
 
-    <section></section>
-    <section></section>
+    <br><br><br><br>
 
-    
     <footer id="footer" class="footer">
+      <div class="container">
+        <div class="copyright text-center">
+          <p>© <span>Copyright</span> <strong class="px-1 sitename">Vesperr</strong> <span>All Rights Reserved</span></p>
+        </div>
+        <div class="social-links d-flex justify-content-center">
+          <a href=""><i class="bi bi-twitter"></i></a>
+          <a href=""><i class="bi bi-facebook"></i></a>
+          <a href=""><i class="bi bi-instagram"></i></a>
+          <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you've purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer>
 
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Vesperr</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-
-  </footer>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha384-8zdfmAbP+5gC5d54WiwLF/NQblWAdcYvlmKBv+SkEul/jvlgTwnu/M24L5nJ7DjM" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Custom JavaScript validation
-    (function() {
-      'use strict'
+    function confirmSubmission() {
+      var isValid = document.querySelector('.needs-validation').checkValidity();
 
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll('.needs-validation')
-
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms)
-        .forEach(function(form) {
-          form.addEventListener('submit', function(event) {
-            if (!form.checkValidity()) {
-              event.preventDefault()
-              event.stopPropagation()
-            }
-
-            form.classList.add('was-validated')
-          }, false)
-        })
-    })()
-
-    function validateForm() {
-      var valid = true;
-
-      // Example custom validation logic
-      var tel = document.getElementById('lastName');
-      if (!/^[0-9+]*$/.test(tel.value)) {
-        valid = false;
-        tel.classList.add('is-invalid');
+      if (isValid) {
+        var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        modal.show();
       } else {
-        tel.classList.remove('is-invalid');
+        // If form is not valid, show the validation feedback
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms)
+          .forEach(function(form) {
+            form.classList.add('was-validated');
+          });
       }
 
-      return valid;
+      return false; // Prevent form from being submitted automatically
+    }
+
+    // Function to handle form submission from modal
+    function submitForm() {
+      document.querySelector('.needs-validation').submit();
     }
   </script>
+
+  <!-- Modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Confirm Submission</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to submit the form?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
+
