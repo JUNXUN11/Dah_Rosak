@@ -54,7 +54,7 @@
           <li><a href="index.html#contact">Contact</a></li>
           <li class="dropdown"><i class="btn-getstarted btn-sm bi bi-person-circle"></i>
             <ul>
-              <li><a href="#">Profile</a></li>
+              <li><a href="profile.php">Profile</a></li>
               <li><a href="logout.php" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a></li>
             </ul>
           </li>
