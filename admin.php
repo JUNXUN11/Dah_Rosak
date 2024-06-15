@@ -4,7 +4,11 @@
    include "db_conn.php";
   
    //query
-   $sql = 'SELECT * FROM damage ORDER BY reg_date';
+   $sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date
+        FROM damage_reports dr
+        INNER JOIN locations l ON dr.location_id = l.id
+        INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
+        ORDER BY dr.reg_date';
 
    //get result
    $result = mysqli_query($conn, $sql);
