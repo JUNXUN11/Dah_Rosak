@@ -48,7 +48,7 @@
 
       <nav id="navmenu" class="navmenu me-4">
         <ul>
-          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="index.html#about">About</a></li>
           <li><a href="index.html#services">Services</a></li>         
           <li><a href="index.html#contact">Contact</a></li>
