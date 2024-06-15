@@ -25,7 +25,7 @@ $sql_statements = [
         roomNum VARCHAR(30) NOT NULL,
         description VARCHAR(255),
         reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        user_id INT NOT NULL,
+        user_id INT(6) UNSIGNED NOT NULL,
         status BOOLEAN DEFAULT 0,
         FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
         FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE,
@@ -36,7 +36,7 @@ $sql_statements = [
 // Execute each SQL statement
 foreach ($sql_statements as $sql) {
     if ($conn->query($sql) === TRUE) {
-        echo "Table created successfully: " . $sql . "<br>";
+        echo "Table created successfully: "."<br>";
     } else {
         echo "Error creating table: " . $conn->error . "<br>";
     }
