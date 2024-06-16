@@ -7,7 +7,7 @@ if(isset($_POST['register'])){
     $username = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = 'admin';
+    $role = 'user';
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
