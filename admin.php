@@ -105,8 +105,6 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                
-                <?php   include "admin-header.php";?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
