@@ -14,11 +14,11 @@
    $result = mysqli_query($conn, $sql);
   
    //fetch in array form 
-   $damages = mysqli_fetch_all($result, MYSQLI_ASSOC);
+   //$damages = mysqli_fetch_all($result, MYSQLI_ASSOC);
    
-   mysqli_free_result($result);
+   //mysqli_free_result($result);
 
-   mysqli_close($conn);
+   //mysqli_close($conn);
 
 ?>
 
@@ -105,7 +105,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-
+                
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
