@@ -10,7 +10,7 @@
    $result = mysqli_query($conn, $sql);
   
    //fetch in array form 
-   $damages = mysqli_fetch_all($result, MYSQLI_ASSOC);
+   $pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
    
    mysqli_free_result($result);
 
