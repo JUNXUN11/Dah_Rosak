@@ -1,3 +1,29 @@
+<?php 
+// Q1: Start the session
+   session_start();
+   include "db_conn.php";
+  
+   //query
+
+
+   $sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date
+        FROM damage_reports dr
+        INNER JOIN locations l ON dr.location_id = l.id
+        INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
+        ORDER BY dr.reg_date';
+
+   //get result
+   $result = mysqli_query($conn, $sql);
+  
+   //fetch in array form 
+   $damages = mysqli_fetch_all($result, MYSQLI_ASSOC);
+   
+   mysqli_free_result($result);
+
+   mysqli_close($conn);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +35,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Admin Tables</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,7 +60,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -46,7 +72,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="admin.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -88,43 +114,7 @@
 
                    
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>                               
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
+                 <?php   include "admin-header.php";?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -146,33 +136,40 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Telephone</th>
+                                            <th>Location</th>
+                                            <th>Floor</th>
+                                            <th>Room Num</th>
+                                            <th>Damage Type</th>
+                                            <th>Damage Description</th>
+                                            <th>Reg Date</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Telephone</th>
+                                            <th>Location</th>
+                                            <th>Floor</th>
+                                            <th>Room Num</th>
+                                            <th>Damage Type</th>
+                                            <th>Damage Description</th>
+                                            <th>Reg Date</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <?php foreach($damages as $damage): ?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td><?php echo htmlspecialchars($damage['firstname']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['telephone']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['location']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['floor']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['roomNum']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['damage_type']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['description']); ?></td>
+                                            <td><?php echo htmlspecialchars($damage['reg_date']); ?></td>
                                         </tr>
-                                        
+                                    <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -206,25 +203,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
