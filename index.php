@@ -8,6 +8,8 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
 
 <?php 
   $email = $_SESSION["email"];
+  $id = $_SESSION["id"];
+  $name = $_SESSION["name"];
 ?>
 
 <!DOCTYPE html>

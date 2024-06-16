@@ -6,6 +6,7 @@ $password = ""; // Password
 $db_name = "dah_rosak";  // Database name
 $port = 8000; // MySQL port
 
+
 // Create connection
 $conn = mysqli_connect($sname, $uname, $password, $db_name);
 
