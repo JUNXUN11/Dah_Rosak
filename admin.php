@@ -31,6 +31,14 @@
 
     mysqli_free_result($count_result);
 
+    // Query to get the total number of damage reports
+    $sql_total_reports = 'SELECT COUNT(id) AS total_reports FROM damage_reports';
+    $total_reports_result = mysqli_query($conn, $sql_total_reports);
+    $total_reports = mysqli_fetch_assoc($total_reports_result)['total_reports'];
+
+    mysqli_free_result($total_reports_result);
+
+
 
    mysqli_close($conn);
 
@@ -165,7 +173,13 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Damage Reports</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    foreach ($damage_counts as $damage_count) {
+                                                        echo $damage_count['type'] . ": " . $damage_count['count'] . "<br>";
+                                                    }
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
