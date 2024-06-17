@@ -360,7 +360,7 @@
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://g.co/kgs/k2CosMW','_blank');
+        window.open('https://shorturl.at/pmuWQ','_blank');
     });
     </script>
 
@@ -369,7 +369,7 @@
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://g.co/kgs/Ti8EvgN','_blank');
+        window.open('https://shorturl.at/2ZMJI','_blank');
     });
     </script>
 
@@ -378,7 +378,7 @@
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://g.co/kgs/BkZTgKV','_blank');
+        window.open('https://shorturl.at/dVgtN','_blank');
     });
     </script>
 
