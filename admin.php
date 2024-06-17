@@ -90,10 +90,10 @@
     mysqli_free_result($result);
 
     //Query for building name
-    $sql = 'SELECT SUBSTRING_INDEX(l.name, '-', 1) AS building, COUNT(dr.id) AS count
+    $sql = "SELECT SUBSTRING_INDEX(l.name, '-', 1) AS building, COUNT(dr.id) AS count
     FROM damage_reports dr
     INNER JOIN locations l ON dr.location_id = l.id
-    GROUP BY building';
+    GROUP BY building";
 
     $result = mysqli_query($conn, $sql);
     $building_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
