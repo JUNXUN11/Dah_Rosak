@@ -78,12 +78,34 @@
         $data[] = $row['num_reports'];
     }
 
+    // Query to fetch location reports
+    $sql = "SELECT l.name AS location, COUNT(dr.id) AS count
+    FROM damage_reports dr
+    INNER JOIN locations l ON dr.location_id = l.id
+    GROUP BY dr.location_id";
+
+    $result = mysqli_query($conn, $sql);
+    $location_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_free_result($result);
+
+    // Prepare the data for the pie chart
+    $location_labels = array();
+    $location_data = array();
+
+    foreach ($location_reports as $report) {
+    $location_labels[] = $report['location'];
+    $location_data[] = $report['count'];
+    }
+
     mysqli_close($conn);
 
     // Encode data to JSON format
     $locationReportsJson = json_encode($location_reports);
     $labelsJson = json_encode($labels);
     $dataJson = json_encode($data);
+    $locationLabelsJson = json_encode($location_labels);
+    $locationDataJson = json_encode($location_data);
 ?>
 
 <!DOCTYPE html>
@@ -405,6 +427,8 @@
     <script>
         var labelsData = <?php echo $labelsJson; ?>;
         var chartData = <?php echo $dataJson; ?>;
+        var locationLabels = <?php echo $locationLabelsJson; ?>;
+        var locationData = <?php echo $locationDataJson; ?>;
     </script>
     
     <!-- Bootstrap core JavaScript-->
