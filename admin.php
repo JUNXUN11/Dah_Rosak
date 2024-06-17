@@ -377,7 +377,7 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                     <?php
-                                        $colors = array('#4e73df', '#1cc88a', '#36b9cc','#5a5cdd','#17a589','#33b1c7');
+                                        $colors = array('#4e73df', '#1cc88a', '#36b9cc','#5a5cdd','#17a589','#33b1c7','#7a81e0','#2ed573','#74b9ff','#e17055','#fdcb6e');
                                         $i = 0;
                                         foreach ($building_labels as $label) {
                                             echo '<span class="mr-2"><i class="fas fa-circle" style="color: ' . $colors[$i] . ';"></i> ' . $label . '</span>';

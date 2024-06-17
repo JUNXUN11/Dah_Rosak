@@ -10,8 +10,8 @@ var myPieChart = new Chart(ctx, {
     labels: buildingLabels,
     datasets: [{
       data: buildingData,
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#5a5cdd','#17a589','#33b1c7'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#5a5cdd','#17a589','#33b1c7'],
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#5a5cdd','#17a589','#33b1c7','#7a81e0','#2ed573','#74b9ff','#e17055','#fdcb6e'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#4a4cb3','#138f73','#2d99af','#6366b0',	'#25a45a','#5c95cc','	#b55a44','#cc9c57'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
