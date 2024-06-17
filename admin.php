@@ -247,7 +247,7 @@
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Pending Requests</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $pending_count; ?>
+                                                18
                                             </div>
                                         </div>
                                         <div class="col-auto">
