@@ -359,7 +359,7 @@
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('your_target_url.html', 'newwindow', 'width=800,height=600');
+        window.open('table.php', 'newwindow', 'width=800,height=600');
     });
     </script>
 
