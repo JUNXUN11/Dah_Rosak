@@ -301,7 +301,7 @@
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">For more:</div>
                                             <a class="dropdown-item" href="tables.php">View Details</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#" id="anotherActionLink">Another action</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
@@ -354,7 +354,14 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    
+    <script>
+    document.getElementById('anotherActionLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default action of the link
+
+        // Open a new window with specified dimensions
+        window.open('your_target_url.html', 'newwindow', 'width=800,height=600');
+    });
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
