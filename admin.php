@@ -62,11 +62,28 @@
 
     mysqli_free_result($result);
 
+    //Get date for chart
+    $query = "SELECT DATE(reg_date) AS report_date, COUNT(*) AS num_reports 
+          FROM damage_reports
+          GROUP BY report_date
+          ORDER BY report_date";
+    
+    $result = mysqli_query($conn, $query);
+
+    // Prepare the data for the chart
+    $labels = array();
+    $data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $labels[] = $row['report_date'];
+        $data[] = $row['num_reports'];
+    }
+
     mysqli_close($conn);
 
     // Encode data to JSON format
     $locationReportsJson = json_encode($location_reports);
-
+    $labelsJson = json_encode($labels);
+    $dataJson = json_encode($data);
 ?>
 
 <!DOCTYPE html>
@@ -385,6 +402,11 @@
     });
     </script>
 
+    <script>
+        var labelsData = <?php echo $labelsJson; ?>;
+        var chartData = <?php echo $dataJson; ?>;
+    </script>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
