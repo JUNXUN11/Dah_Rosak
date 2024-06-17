@@ -376,15 +376,14 @@
                                         <canvas id="myPieChart"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> MA1
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> MA4
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> MA7
-                                        </span>
+                                    <?php
+                                        $colors = array('#4e73df', '#1cc88a', '#36b9cc');
+                                        $i = 0;
+                                        foreach ($building_labels as $label) {
+                                            echo '<span class="mr-2"><i class="fas fa-circle" style="color: ' . $colors[$i] . ';"></i> ' . $label . '</span>';
+                                            $i = ($i + 1) % count($colors);
+                                        }
+                                    ?>
                                     </div>
                                 </div>
                             </div>
