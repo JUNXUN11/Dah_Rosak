@@ -301,9 +301,10 @@
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">For more:</div>
                                             <a class="dropdown-item" href="tables.php">View Details</a>
-                                            <a class="dropdown-item" href="#" id="anotherActionLink">Another action</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="#" id="MA1">MA1 Maps</a>
+                                            <a class="dropdown-item" href="#" id="MA4">MA4 Maps</a>
+                                            <a class="dropdown-item" href="#" id="MA7">MA7 Maps</a>
                                         </div>
                                     </div>
                                 </div>
@@ -355,11 +356,29 @@
     </a>
 
     <script>
-    document.getElementById('anotherActionLink').addEventListener('click', function(event) {
+    document.getElementById('MA1').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://shorturl.at/MNiNw','_blank');
+        window.open('https://g.co/kgs/k2CosMW','_blank');
+    });
+    </script>
+
+    <script>
+    document.getElementById('MA4').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default action of the link
+
+        // Open a new window with specified dimensions
+        window.open('https://g.co/kgs/Ti8EvgN','_blank');
+    });
+    </script>
+
+    <script>
+    document.getElementById('MA7').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default action of the link
+
+        // Open a new window with specified dimensions
+        window.open('https://g.co/kgs/BkZTgKV','_blank');
     });
     </script>
 
