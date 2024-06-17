@@ -62,6 +62,13 @@
 
     mysqli_free_result($result);
 
+    // Query to get the number of reports with a description
+    $sql_reports_with_description = "SELECT COUNT(id) AS reports_with_description FROM damage_reports WHERE description IS NOT NULL AND TRIM(description) != ''";
+    $reports_with_description_result = mysqli_query($conn, $sql_reports_with_description);
+    $reports_with_description = mysqli_fetch_assoc($reports_with_description_result)['reports_with_description'];
+
+    mysqli_free_result($reports_with_description_result);
+
     //Get date for chart
     $query = "SELECT DATE(reg_date) AS report_date, COUNT(*) AS num_reports 
           FROM damage_reports
@@ -300,9 +307,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
+                                                Report With Description</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                18
+                                                <?php echo $reports_with_description; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
