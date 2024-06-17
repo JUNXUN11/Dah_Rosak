@@ -38,6 +38,13 @@
 
     mysqli_free_result($total_reports_result);
 
+    // Query to get the total number of rows in the damage_reports table
+    $sql_total_rows = "SELECT COUNT(*) AS pending_count FROM damage_reports";
+    $total_rows_result = mysqli_query($conn, $sql_total_rows);
+    $total_rows_count = mysqli_fetch_assoc($total_rows_result);
+
+    mysqli_free_result($total_rows_result);
+
    // Query to fetch location reports
     $sql = "SELECT l.name AS location, COUNT(dr.id) AS count
     FROM damage_reports dr
@@ -239,7 +246,9 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $pending_count; ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -378,7 +387,7 @@
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://g.co/kgs/BkZTgKV','_blank');
+        window.open('https://shorturl.at/o3XpE','_blank');
     });
     </script>
 
