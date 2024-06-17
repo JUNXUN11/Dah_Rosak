@@ -174,11 +174,7 @@
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Damage Reports</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php
-                                                    foreach ($damage_counts as $damage_count) {
-                                                        echo $damage_count['type'] . ": " . $damage_count['count'] . "<br>";
-                                                    }
-                                                ?>
+                                                <?php echo $total_reports; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
