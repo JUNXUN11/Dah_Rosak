@@ -116,7 +116,7 @@ function createChart(dates, requestCounts) {
 }
 
 // Fetch data from the PHP endpoint
-fetch('getData.php')
+fetch('admin.php')
   .then(response => response.json())
   .then(data => {
     var requestDates = data.dates;
