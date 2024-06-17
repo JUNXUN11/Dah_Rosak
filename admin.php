@@ -38,7 +38,15 @@
 
     mysqli_free_result($total_reports_result);
 
+    // Query to get the number of damage reports by location
+    $sql_location_reports = 'SELECT l.name AS location, COUNT(dr.id) AS count 
+    FROM damage_reports dr 
+    INNER JOIN locations l ON dr.location_id = l.id 
+    GROUP BY l.name';
+    $location_reports_result = mysqli_query($conn, $sql_location_reports);
+    $location_reports = mysqli_fetch_all($location_reports_result, MYSQLI_ASSOC);
 
+    mysqli_free_result($location_reports_result);
 
    mysqli_close($conn);
 
@@ -274,7 +282,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Locations</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -297,13 +305,13 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fas fa-circle text-primary"></i> MA1
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
+                                            <i class="fas fa-circle text-success"></i> MA4
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
+                                            <i class="fas fa-circle text-info"></i> MA7
                                         </span>
                                     </div>
                                 </div>
