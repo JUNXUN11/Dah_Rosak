@@ -2,6 +2,18 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+document.addEventListener("DOMContentLoaded", function() {
+  fetch('admin.php') // Adjust this URL to match your server endpoint
+      .then(response => response.json())
+      .then(data => {
+          // Extract damage types and counts from the fetched data
+          var damageTypes = data.map(item => item.type);
+          var damageCounts = data.map(item => item.count);
+          createChart(damageTypes, damageCounts);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+});
+
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -28,11 +40,12 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
+function createChart(damageTypes, damageCounts) {
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels:damageTypes,
     datasets: [{
       label: "Requests",
       lineTension: 0.3,
@@ -46,7 +59,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 5, 10, 15, 20, 25, 30],
+      data: damageCounts,
     }],
   },
   options: {
@@ -116,3 +129,5 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+}
