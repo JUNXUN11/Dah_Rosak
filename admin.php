@@ -39,7 +39,7 @@
     mysqli_free_result($total_reports_result);
 
     // Query to get the total number of rows in the damage_reports table
-    $sql_total_rows = "SELECT COUNT(*) AS pending_count FROM damage_reports";
+    $sql_total_rows = 'SELECT COUNT(*) AS pending_count FROM damage_reports';
     $total_rows_result = mysqli_query($conn, $sql_total_rows);
     $total_rows_count = mysqli_fetch_assoc($total_rows_result);
 
