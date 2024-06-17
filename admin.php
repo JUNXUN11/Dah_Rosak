@@ -89,6 +89,26 @@
 
     mysqli_free_result($result);
 
+    //Query for building name
+    $sql = 'SELECT SUBSTRING_INDEX(l.name, '-', 1) AS building, COUNT(dr.id) AS count
+    FROM damage_reports dr
+    INNER JOIN locations l ON dr.location_id = l.id
+    GROUP BY building';
+
+    $result = mysqli_query($conn, $sql);
+    $building_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_free_result($result);
+
+    // Prepare the data for the pie chart
+    $building_labels = array();
+    $building_data = array();
+
+    foreach ($building_reports as $report) {
+        $building_labels[] = $report['building'];
+        $building_data[] = $report['count'];
+    }
+
     // Prepare the data for the pie chart
     $location_labels = array();
     $location_data = array();
@@ -106,6 +126,8 @@
     $dataJson = json_encode($data);
     $locationLabelsJson = json_encode($location_labels);
     $locationDataJson = json_encode($location_data);
+    $buildingLabelsJson = json_encode($building_labels);
+    $buildingDataJson = json_encode($building_data);
 ?>
 
 <!DOCTYPE html>
@@ -409,6 +431,8 @@
         var chartData = <?php echo $dataJson; ?>;
         var locationLabels = <?php echo $locationLabelsJson; ?>;
         var locationData = <?php echo $locationDataJson; ?>;
+        var buildingLabels = <?php echo $buildingLabelsJson; ?>;
+        var buildingData = <?php echo $buildingDataJson; ?>;
     </script>
     
     <!-- Bootstrap core JavaScript-->
