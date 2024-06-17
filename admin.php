@@ -219,7 +219,7 @@
                                             </div class>
                                             <?php
                                                 foreach ($floorRequests as $floor => $numRequests) {
-                                                    echo '<div class="h5 mb-0 font-weight-bold text-gray-800">' . htmlspecialchars($floor) . ': ' . $numRequests . '</div>';
+                                                    echo '<div class="h5 mb-0 font-weight-bold text-gray-800">' .'Floor'. htmlspecialchars($floor) . ': ' . $numRequests . '</div>';
                                                 }
                                             ?>
                                         </div>
