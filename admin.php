@@ -216,7 +216,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Requests Per Floor
-                                            </div>
+                                            </div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <?php
                                                 foreach ($floorRequests as $floor => $numRequests) {
                                                     echo '<div class="h6 mb-0">' . htmlspecialchars($floor) . ': ' . $numRequests . '</div>';
