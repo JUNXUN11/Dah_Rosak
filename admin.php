@@ -18,6 +18,20 @@
    
    mysqli_free_result($result);
 
+   // Query to get the count of each damage type
+    $sql_count = 'SELECT dt.type, COUNT(dr.id) AS count 
+    FROM damage_reports dr
+    INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
+    GROUP BY dt.type';
+
+    $count_result = mysqli_query($conn, $sql_count);
+
+    // Fetch counts in array form
+    $damage_counts = mysqli_fetch_all($count_result, MYSQLI_ASSOC);
+
+    mysqli_free_result($count_result);
+
+
    mysqli_close($conn);
 
 ?>
@@ -127,7 +141,13 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Damage Types</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    foreach ($damage_counts as $damage_count) {
+                                                        echo $damage_count['type'] . ": " . $damage_count['count'] . "<br>";
+                                                    }
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
