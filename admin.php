@@ -62,21 +62,6 @@
 
     mysqli_free_result($result);
 
-    // Query to count the number of rows in the damage_reports table
-    $sql_count_rows = "SELECT COUNT(*) AS row_count FROM damage_reports";
-    $result = mysqli_query($conn, $sql_count_rows);
-
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-        $row_count = $row['row_count'];
-    } else {
-        $row_count = 0; // Default to 0 in case of an error
-    }
-
-    // Return the count as a JSON response
-    header('Content-Type: application/json');
-    echo json_encode(['row_count' => $row_count]);
-
     mysqli_close($conn);
 
     // Encode data to JSON format
@@ -255,8 +240,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="pendingRequestsCount">
-                                                0
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                18
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -397,20 +382,6 @@
 
         // Open a new window with specified dimensions
         window.open('https://shorturl.at/o3XpE','_blank');
-    });
-    </script>
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    fetch('count_rows.php')
-        .then(response => response.json())
-        .then(data => {
-        var rowCount = data.row_count;
-
-        // Update the pending requests count in the HTML
-        document.getElementById("pendingRequestsCount").innerText = rowCount;
-        })
-        .catch(error => console.error('Error fetching row count:', error));
     });
     </script>
 
