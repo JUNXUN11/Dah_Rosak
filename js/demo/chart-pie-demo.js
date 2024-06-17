@@ -10,8 +10,10 @@ var myPieChart = new Chart(ctx, {
     labels: buildingLabels,
     datasets: [{
       data: buildingData,
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      backgroundColor: buildingColors,
+      hoverBackgroundColor: buildingColors.map(function(color) {
+        return Chart.helpers.color.darken(color, 20); // Darken the hover color
+      }),
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

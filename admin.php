@@ -118,6 +118,9 @@
     $location_data[] = $report['count'];
     }
 
+    //Random color
+    $colors = array();
+    
     mysqli_close($conn);
 
     // Encode data to JSON format
@@ -380,8 +383,9 @@
                                         $colors = array('#4e73df', '#1cc88a', '#36b9cc');
                                         $i = 0;
                                         foreach ($building_labels as $label) {
+                                            $colors[] = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
                                             echo '<span class="mr-2"><i class="fas fa-circle" style="color: ' . $colors[$i] . ';"></i> ' . $label . '</span>';
-                                            $i = ($i + 1) % count($colors);
+                                            $i++;
                                         }
                                     ?>
                                     </div>
