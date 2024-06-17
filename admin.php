@@ -202,7 +202,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-wrench-simple fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
