@@ -37,7 +37,7 @@ function createChart(dates, requestCounts) {
   var myLineChart = new Chart(ctx, {
       type: 'line',
       data: {
-          labels: dates,
+          labels: requestDates,
           datasets: [{
               label: "Requests",
               lineTension: 0.3,
