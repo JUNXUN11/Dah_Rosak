@@ -73,11 +73,6 @@
         $dates[] = $row['request_date'];
         $requestCounts[] = $row['num_requests'];
     }
-    // Combine arrays into an associative array
-    $data = array(
-        "dates" => $dates,
-        "requestCounts" => $requestCounts
-    );
 
     // Return the data as JSON
     echo json_encode($data);
