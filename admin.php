@@ -38,17 +38,33 @@
 
     mysqli_free_result($total_reports_result);
 
-    // Query to get the number of damage reports by location
-    $sql_location_reports = 'SELECT l.name AS location, COUNT(dr.id) AS count 
-    FROM damage_reports dr 
-    INNER JOIN locations l ON dr.location_id = l.id 
-    GROUP BY l.name';
-    $location_reports_result = mysqli_query($conn, $sql_location_reports);
-    $location_reports = mysqli_fetch_all($location_reports_result, MYSQLI_ASSOC);
+   // Query to fetch location reports
+    $sql = "SELECT l.name AS location, COUNT(dr.id) AS count
+    FROM damage_reports dr
+    INNER JOIN locations l ON dr.location_id = l.id
+    GROUP BY dr.location_id";
 
-    mysqli_free_result($location_reports_result);
+    $result = mysqli_query($conn, $sql);
+    $location_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-   mysqli_close($conn);
+    mysqli_free_result($result);
+
+    // Query to get count of requests per floor
+    $sql = "SELECT floor, COUNT(*) AS num_requests FROM damage_reports GROUP BY floor";
+
+    $result = mysqli_query($conn, $sql);
+
+    // Create an associative array to store floor-wise request counts
+    $floorRequests = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $floorRequests[$row['floor']] = $row['num_requests'];
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($conn);
+
+    // Encode data to JSON format
+    $locationReportsJson = json_encode($location_reports);
 
 ?>
 
@@ -199,20 +215,13 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Requests Per Floor
                                             </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <?php
+                                                foreach ($floorRequests as $floor => $numRequests) {
+                                                    echo '<div class="h6 mb-0">' . htmlspecialchars($floor) . ': ' . $numRequests . '</div>';
+                                                }
+                                                ?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
