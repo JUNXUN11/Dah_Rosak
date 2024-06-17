@@ -341,9 +341,6 @@
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">For more:</div>
                                             <a class="dropdown-item" href="tables.php">More Details</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div>
                                 </div>
