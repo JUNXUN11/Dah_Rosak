@@ -54,10 +54,6 @@
 
     $result = mysqli_query($conn, $sql);
 
-    // Prepare the data for the pie chart
-    $floor_labels = array();
-    $floor_data = array();
-
     // Create an associative array to store floor-wise request counts
     $floorRequests = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -110,8 +106,6 @@
     $dataJson = json_encode($data);
     $locationLabelsJson = json_encode($location_labels);
     $locationDataJson = json_encode($location_data);
-    $floorLabelsJson = json_encode($floor_labels);
-    $floorDataJson = json_encode($floor_data);
 ?>
 
 <!DOCTYPE html>
@@ -360,12 +354,15 @@
                                         <canvas id="myPieChart"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-                                    <?php foreach ($floor_labels as $index => $floor): ?>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle" style="color: <?php echo $colors[$index % count($colors)]; ?>;"></i>
-                                            <?php echo htmlspecialchars($floor); ?>
+                                            <i class="fas fa-circle text-primary"></i> MA1
                                         </span>
-                                    <?php endforeach; ?>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> MA4
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> MA7
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -412,8 +409,6 @@
         var chartData = <?php echo $dataJson; ?>;
         var locationLabels = <?php echo $locationLabelsJson; ?>;
         var locationData = <?php echo $locationDataJson; ?>;
-        var floorLabels = <?php echo $floorLabelsJson; ?>;
-        var floorData = <?php echo $floorDataJson; ?>;
     </script>
     
     <!-- Bootstrap core JavaScript-->
