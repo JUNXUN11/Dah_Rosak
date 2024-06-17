@@ -78,17 +78,6 @@
         $data[] = $row['num_reports'];
     }
 
-    // Query to fetch location reports
-    $sql = "SELECT l.name AS location, COUNT(dr.id) AS count
-    FROM damage_reports dr
-    INNER JOIN locations l ON dr.location_id = l.id
-    GROUP BY dr.location_id";
-
-    $result = mysqli_query($conn, $sql);
-    $location_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    mysqli_free_result($result);
-
     //Query for building name
     $sql = "SELECT SUBSTRING_INDEX(l.name, '-', 1) AS building, COUNT(dr.id) AS count
     FROM damage_reports dr
@@ -117,9 +106,6 @@
     $location_labels[] = $report['location'];
     $location_data[] = $report['count'];
     }
-
-    //Random color
-    $colors = array();
     
     mysqli_close($conn);
 
@@ -127,8 +113,6 @@
     $locationReportsJson = json_encode($location_reports);
     $labelsJson = json_encode($labels);
     $dataJson = json_encode($data);
-    $locationLabelsJson = json_encode($location_labels);
-    $locationDataJson = json_encode($location_data);
     $buildingLabelsJson = json_encode($building_labels);
     $buildingDataJson = json_encode($building_data);
 ?>
