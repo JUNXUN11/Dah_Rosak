@@ -28,10 +28,7 @@
 
     // Fetch counts in array form
     $damage_counts = mysqli_fetch_all($count_result, MYSQLI_ASSOC);
-    // Return the result as JSON
-    header('Content-Type: application/json');
-    echo json_encode($damage_counts);
-    
+
     mysqli_free_result($count_result);
 
     // Query to get the total number of damage reports
@@ -381,7 +378,7 @@
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://shorturl.at/dVgtN','_blank');
+        window.open('https://g.co/kgs/BkZTgKV','_blank');
     });
     </script>
 
