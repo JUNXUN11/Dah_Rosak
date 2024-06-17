@@ -60,23 +60,6 @@
         $floorRequests[$row['floor']] = $row['num_requests'];
     }
 
-    // Query to get count of requests per date
-    $sql = "SELECT DATE(reg_date) as request_date, COUNT(*) as num_requests FROM damage_reports GROUP BY request_date ORDER BY request_date";
-
-    $result = mysqli_query($conn, $sql);
-
-    // Create arrays to store dates and request counts
-    $dates = array();
-    $requestCounts = array();
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $dates[] = $row['request_date'];
-        $requestCounts[] = $row['num_requests'];
-    }
-
-    // Return the data as JSON
-    echo json_encode($data);
-    
     mysqli_free_result($result);
     mysqli_close($conn);
 
