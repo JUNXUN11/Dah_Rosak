@@ -344,9 +344,7 @@
                                             <div class="dropdown-header">For more:</div>
                                             <a class="dropdown-item" href="tables.php">View Details</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" id="MA1">MA1 Maps</a>
-                                            <a class="dropdown-item" href="#" id="MA4">MA4 Maps</a>
-                                            <a class="dropdown-item" href="#" id="MA7">MA7 Maps</a>
+                                            <a class="dropdown-item" href="#" id="maps">To Find Location</a>
                                         </div>
                                     </div>
                                 </div>
@@ -398,29 +396,11 @@
     </a>
 
     <script>
-    document.getElementById('MA1').addEventListener('click', function(event) {
+    document.getElementById('maps').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default action of the link
 
         // Open a new window with specified dimensions
-        window.open('https://shorturl.at/pmuWQ','_blank');
-    });
-    </script>
-
-    <script>
-    document.getElementById('MA4').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default action of the link
-
-        // Open a new window with specified dimensions
-        window.open('https://shorturl.at/2ZMJI','_blank');
-    });
-    </script>
-
-    <script>
-    document.getElementById('MA7').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default action of the link
-
-        // Open a new window with specified dimensions
-        window.open('https://shorturl.at/o3XpE','_blank');
+        window.open('https://www.google.com/maps','_blank');
     });
     </script>
 
