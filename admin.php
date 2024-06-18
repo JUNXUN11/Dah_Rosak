@@ -18,14 +18,6 @@
    
    mysqli_free_result($result);
 
-   // Query to get the count of each damage type
-    $sql_count = 'SELECT dt.type, COUNT(dr.id) AS count 
-    FROM damage_reports dr
-    INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
-    GROUP BY dt.type';
-
-    $count_result = mysqli_query($conn, $sql_count);
-
     // Fetch counts in array form
     $damage_counts = mysqli_fetch_all($count_result, MYSQLI_ASSOC);
 
@@ -48,11 +40,6 @@
     $location_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     mysqli_free_result($result);
-
-    // Query to get count of requests per floor
-    $sql = "SELECT floor, COUNT(*) AS num_requests FROM damage_reports GROUP BY floor";
-
-    $result = mysqli_query($conn, $sql);
 
     // Query to get the total number of solved reports
     $sql_solved_reports = 'SELECT COUNT(id) AS solved_reports FROM damage_reports WHERE status = 1';
@@ -279,7 +266,7 @@
                             </div>
                         </div>
 
-                        <!-- Number of reports per damage tyoe -->
+                        <!-- Number of solved reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
@@ -301,7 +288,7 @@
                             </div>
                         </div>
 
-                        <!-- Number of reports per floor -->
+                        <!-- Number of unsolved reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
@@ -323,7 +310,7 @@
                             </div>
                         </div>
 
-                        <!-- Reports with description -->
+                        <!-- Today's Reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
