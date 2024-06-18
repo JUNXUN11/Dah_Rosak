@@ -18,8 +18,122 @@
    
    mysqli_free_result($result);
 
-   mysqli_close($conn);
+    // Query to get the total number of damage reports
+    $sql_total_reports = 'SELECT COUNT(id) AS total_reports FROM damage_reports';
+    $total_reports_result = mysqli_query($conn, $sql_total_reports);
+    $total_reports = mysqli_fetch_assoc($total_reports_result)['total_reports'];
 
+    mysqli_free_result($total_reports_result);
+
+   // Query to fetch location reports
+    $sql = "SELECT l.name AS location, COUNT(dr.id) AS count
+    FROM damage_reports dr
+    INNER JOIN locations l ON dr.location_id = l.id
+    GROUP BY dr.location_id";
+
+    $result = mysqli_query($conn, $sql);
+    $location_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_free_result($result);
+
+    // Query to get the total number of solved reports
+    $sql_solved_reports = 'SELECT COUNT(id) AS solved_reports FROM damage_reports WHERE status = 1';
+    $solved_reports_result = mysqli_query($conn, $sql_solved_reports);
+    $solved_reports = mysqli_fetch_assoc($solved_reports_result)['solved_reports'];
+
+    // Query to get the total number of unsolved reports
+    $sql_unsolved_reports = 'SELECT COUNT(id) AS unsolved_reports FROM damage_reports WHERE status = 0';
+    $unsolved_reports_result = mysqli_query($conn, $sql_unsolved_reports);
+    $unsolved_reports = mysqli_fetch_assoc($unsolved_reports_result)['unsolved_reports'];
+
+    mysqli_free_result($solved_reports_result);
+    mysqli_free_result($unsolved_reports_result);
+
+    // Query to get the count of requests received today
+    $current_date = date('Y-m-d');
+    $sql_requests_today = "SELECT COUNT(*) AS requests_today
+                        FROM damage_reports
+                        WHERE DATE(reg_date) = '$current_date'
+                        AND status = 0";
+
+    $requests_today_result = mysqli_query($conn, $sql_requests_today);
+    $requests_today = mysqli_fetch_assoc($requests_today_result)['requests_today'];
+
+    mysqli_free_result($requests_today_result);
+
+    // Query to get the number of reports with a description
+    $sql_reports_with_description = "SELECT COUNT(id) AS reports_with_description FROM damage_reports WHERE description IS NOT NULL AND TRIM(description) != ''";
+    $reports_with_description_result = mysqli_query($conn, $sql_reports_with_description);
+    $reports_with_description = mysqli_fetch_assoc($reports_with_description_result)['reports_with_description'];
+
+    mysqli_free_result($reports_with_description_result);
+
+    //Get date for chart
+    $query = "SELECT DATE(reg_date) AS report_date, COUNT(*) AS num_reports 
+          FROM damage_reports
+          GROUP BY report_date
+          ORDER BY report_date";
+    
+    $result = mysqli_query($conn, $query);
+
+    // Prepare the data for the chart
+    $labels = array();
+    $data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $labels[] = $row['report_date'];
+        $data[] = $row['num_reports'];
+    }
+
+    // Query to fetch location reports
+    $sql = "SELECT l.name AS location, COUNT(dr.id) AS count
+    FROM damage_reports dr
+    INNER JOIN locations l ON dr.location_id = l.id
+    GROUP BY dr.location_id";
+
+    $result = mysqli_query($conn, $sql);
+    $location_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_free_result($result);
+
+    //Query for building name
+    $sql = "SELECT SUBSTRING_INDEX(l.name, '-', 1) AS building, COUNT(dr.id) AS count
+    FROM damage_reports dr
+    INNER JOIN locations l ON dr.location_id = l.id
+    GROUP BY building";
+
+    $result = mysqli_query($conn, $sql);
+    $building_reports = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    mysqli_free_result($result);
+
+    // Prepare the data for the pie chart
+    $building_labels = array();
+    $building_data = array();
+
+    foreach ($building_reports as $report) {
+        $building_labels[] = $report['building'];
+        $building_data[] = $report['count'];
+    }
+
+    // Prepare the data for the pie chart
+    $location_labels = array();
+    $location_data = array();
+
+    foreach ($location_reports as $report) {
+    $location_labels[] = $report['location'];
+    $location_data[] = $report['count'];
+    }
+    
+    mysqli_close($conn);
+
+    // Encode data to JSON format
+    $locationReportsJson = json_encode($location_reports);
+    $labelsJson = json_encode($labels);
+    $dataJson = json_encode($data);
+    $locationLabelsJson = json_encode($location_labels);
+    $locationDataJson = json_encode($location_data);
+    $buildingLabelsJson = json_encode($building_labels);
+    $buildingDataJson = json_encode($building_data);
 ?>
 
 <!DOCTYPE html>
@@ -119,83 +233,84 @@
                     <!-- Content Row -->
                     <div class="row">
 
-                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- Total damage reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Total Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $total_reports; ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-tools fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- Number of solved reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                                Solved Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    echo $solved_reports;
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-thumbs-up fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- Number of unsolved reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
+                                    <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Unsolved Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    echo $unsolved_reports;
+                                                ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-thumbs-down fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Pending Requests Card Example -->
+                        <!-- Today's Reports -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Today's Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $requests_today; ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-wrench fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +328,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Requests Overview</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -221,11 +336,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">For more:</div>
+                                            <a class="dropdown-item" href="tables.php">More Details</a>
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +356,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Locations</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -252,11 +364,10 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-header">For more:</div>
+                                            <a class="dropdown-item" href="tables.php">View Details</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="#" id="maps">To Find Location</a>
                                         </div>
                                     </div>
                                 </div>
@@ -266,15 +377,14 @@
                                         <canvas id="myPieChart"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+                                    <?php
+                                        $colors = array('#4e73df', '#1cc88a', '#36b9cc','#5a5cdd','#17a589','#33b1c7','#7a81e0','#2ed573','#74b9ff','#e17055','#fdcb6e');
+                                        $i = 0;
+                                        foreach ($building_labels as $label) {
+                                            echo '<span class="mr-2"><i class="fas fa-circle" style="color: ' . $colors[$i] . ';"></i> ' . $label . '</span>';
+                                            $i = ($i + 1) % count($colors);
+                                        }
+                                    ?>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +400,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2024</span>
                     </div>
                 </div>
             </footer>
@@ -307,8 +417,24 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    
+    <script>
+    document.getElementById('maps').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default action of the link
 
+        // Open a new window with specified dimensions
+        window.open('https://www.google.com/maps','_blank');
+    });
+    </script>
+
+    <script>
+        var labelsData = <?php echo $labelsJson; ?>;
+        var chartData = <?php echo $dataJson; ?>;
+        var locationLabels = <?php echo $locationLabelsJson; ?>;
+        var locationData = <?php echo $locationDataJson; ?>;
+        var buildingLabels = <?php echo $buildingLabelsJson; ?>;
+        var buildingData = <?php echo $buildingDataJson; ?>;
+    </script>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
