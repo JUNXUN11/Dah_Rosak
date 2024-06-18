@@ -79,7 +79,8 @@
     $current_date = date('Y-m-d');
     $sql_requests_today = "SELECT COUNT(*) AS requests_today
                         FROM damage_reports
-                        WHERE DATE(reg_date) = '$current_date'";
+                        WHERE DATE(reg_date) = '$current_date'
+                        AND status = 0";
 
     $requests_today_result = mysqli_query($conn, $sql_requests_today);
     $requests_today = mysqli_fetch_assoc($requests_today_result)['requests_today'];
