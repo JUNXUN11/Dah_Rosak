@@ -4,7 +4,7 @@ $sname = "localhost"; // Server name
 $uname = "root";    // Username
 $password = ""; // Password
 $db_name = "dah_rosak";  // Database name
-$port = 8000; // MySQL port
+$port = 80; // MySQL port
 
 // Create connection
 $conn = mysqli_connect($sname, $uname, $password, $db_name);
