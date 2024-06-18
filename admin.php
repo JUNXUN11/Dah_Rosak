@@ -54,6 +54,19 @@
 
     $result = mysqli_query($conn, $sql);
 
+    // Query to get the total number of solved reports
+    $sql_solved_reports = 'SELECT COUNT(id) AS solved_reports FROM damage_reports WHERE status = 1';
+    $solved_reports_result = mysqli_query($conn, $sql_solved_reports);
+    $solved_reports = mysqli_fetch_assoc($solved_reports_result)['solved_reports'];
+
+    // Query to get the total number of unsolved reports
+    $sql_unsolved_reports = 'SELECT COUNT(id) AS unsolved_reports FROM damage_reports WHERE status = 0';
+    $unsolved_reports_result = mysqli_query($conn, $sql_unsolved_reports);
+    $unsolved_reports = mysqli_fetch_assoc($unsolved_reports_result)['unsolved_reports'];
+
+    mysqli_free_result($solved_reports_result);
+    mysqli_free_result($unsolved_reports_result);
+
     // Create an associative array to store floor-wise request counts
     $floorRequests = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -261,12 +274,10 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Damage Types</div>
+                                                Solved Reports</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <?php
-                                                    foreach ($damage_counts as $damage_count) {
-                                                        echo $damage_count['type'] . ": " . $damage_count['count'] . "<br>";
-                                                    }
+                                                    echo $solved_reports;
                                                 ?>
                                             </div>
                                         </div>
@@ -284,12 +295,10 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Requests Per Floor
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Unsolved Reports
                                             </div class>
                                             <?php
-                                                foreach ($floorRequests as $floor => $numRequests) {
-                                                    echo '<div class="h5 mb-0 font-weight-bold text-gray-800">' .'Floor '. htmlspecialchars($floor) . ': ' . $numRequests . '</div>';
-                                                }
+                                                echo $unsolved_reports;
                                             ?>
                                         </div>
                                         <div class="col-auto">
