@@ -18,11 +18,6 @@
    
    mysqli_free_result($result);
 
-    // Fetch counts in array form
-    $damage_counts = mysqli_fetch_all($count_result, MYSQLI_ASSOC);
-
-    mysqli_free_result($count_result);
-
     // Query to get the total number of damage reports
     $sql_total_reports = 'SELECT COUNT(id) AS total_reports FROM damage_reports';
     $total_reports_result = mysqli_query($conn, $sql_total_reports);
