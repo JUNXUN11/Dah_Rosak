@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
-$sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
+$sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date
         FROM damage_reports dr
         INNER JOIN locations l ON dr.location_id = l.id
         INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
@@ -105,7 +105,10 @@ $conn->close();
 </head>
 
 <body>
-    <?php include 'header.php'; ?>
+    
+    <header>
+        <section></section>
+    </header>
 
     <div class="container">
         <div class="main-body">
@@ -171,53 +174,7 @@ $conn->close();
                     </div>
                     <br><br>
 
-                    <h1 class="text-center">Reported Damaged</h1>
-                    <br>
-
-
-                    <!-- SHOW REPORTED CASE -->
-                    <?php foreach($damages as $damage): ?>
-                    <div class="card ">
-                        <div class="card-body">
-                            <h6 class="d-flex align-items-center mb-3">
-                                <i class="material-icons text-info mr-2">Reported Damage</i>
-                            </h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                        <th>Floor</th>
-                                        <th>Room Number</th>
-                                        <th>Damage Type</th>
-                                        <th>Description</th>
-                                        <th>Registration Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        <tr>
-                                            
-                                            <td><?php echo htmlspecialchars($damage['location']); ?></td>
-                                            <td><?php echo htmlspecialchars($damage['floor']); ?></td>
-                                            <td><?php echo htmlspecialchars($damage['roomNum']); ?></td>
-                                            <td><?php echo htmlspecialchars($damage['damage_type']); ?></td>
-                                            <td><?php echo htmlspecialchars($damage['description']); ?></td>
-                                            <td><?php echo htmlspecialchars($damage['reg_date']); ?></td>
-                                            <td>
-                                                <?php 
-                                                    echo $damage['status'] == 0 ? 'Not fixed' : 'Fixed'; 
-                                                ?>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-                            
-                        </div>
-                    </div>
-                    <br>
-                    <?php endforeach; ?>
-                    <!-- END OF SHOW REPORTED CASE -->
+                    
 
                                    
                 </div>

@@ -3,7 +3,7 @@
 $sname = "localhost"; // Server name
 $uname = "root";    // Username
 $password = ""; // Password
-$db_name = "rosak";  // Database name
+$db_name = "dah_rosak";  // Database name
 $port = 80; // MySQL port
 
 // Create connection

@@ -6,7 +6,7 @@
    //query
 
 
-   $sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date
+   $sql = 'SELECT dr.id , dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
         FROM damage_reports dr
         INNER JOIN locations l ON dr.location_id = l.id
         INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
@@ -138,23 +138,27 @@
                                             <th>Name</th>
                                             <th>Telephone</th>
                                             <th>Location</th>
-                                            <th>Floor</th>
-                                            <th>Room Num</th>
+                                            <th style="width: 10px;">Floor</th>
+                                            <th style="width: 10px;">Room Num</th>
                                             <th>Damage Type</th>
                                             <th>Damage Description</th>
                                             <th>Reg Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
+                                        <th>Name</th>
                                             <th>Telephone</th>
                                             <th>Location</th>
-                                            <th>Floor</th>
-                                            <th>Room Num</th>
+                                            <th style="width: 10px;">Floor</th>
+                                            <th style="width: 10px;">Room Num</th>
                                             <th>Damage Type</th>
                                             <th>Damage Description</th>
                                             <th>Reg Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -168,6 +172,15 @@
                                             <td><?php echo htmlspecialchars($damage['damage_type']); ?></td>
                                             <td><?php echo htmlspecialchars($damage['description']); ?></td>
                                             <td><?php echo htmlspecialchars($damage['reg_date']); ?></td>
+                                            <td>
+                                                <?php 
+                                                    echo $damage['status'] == 0 ? 'Not fixed' : 'Fixed'; 
+                                                ?>
+                                            </td>
+                                            
+                                            <td>
+                                                <a class='btn btn-primary btn-sm text-center' href='edit_report.php?id=<?php echo $damage['id']; ?>'>Edit</a> 
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                     </tbody>
