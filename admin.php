@@ -75,17 +75,6 @@
 
     mysqli_free_result($result);
 
-    // Query to get the count of reports with a description for the current date
-    $current_date = date('Y-m-d');
-    $sql_reports_today = "SELECT COUNT(*) AS description_count 
-                                    FROM damage_reports
-                                    WHERE DATE(reg_date) = '$current_date'";
-
-    $description_result = mysqli_query($conn, $sql_reports_today);
-    $reports_today = mysqli_fetch_assoc($sql_reports_today)['description_count'];
-
-    mysqli_free_result($description_result);
-
     // Query to get the number of reports with a description
     $sql_reports_with_description = "SELECT COUNT(id) AS reports_with_description FROM damage_reports WHERE description IS NOT NULL AND TRIM(description) != ''";
     $reports_with_description_result = mysqli_query($conn, $sql_reports_with_description);
@@ -327,9 +316,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Today's Report</div>
+                                                Report With Description</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $reports_today; ?>
+                                                <?php echo $reports_with_description; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
