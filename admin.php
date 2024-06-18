@@ -49,14 +49,6 @@
     mysqli_free_result($solved_reports_result);
     mysqli_free_result($unsolved_reports_result);
 
-    // Create an associative array to store floor-wise request counts
-    $floorRequests = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $floorRequests[$row['floor']] = $row['num_requests'];
-    }
-
-    mysqli_free_result($result);
-
     // Query to get the count of requests received today
     $current_date = date('Y-m-d');
     $sql_requests_today = "SELECT COUNT(*) AS requests_today
