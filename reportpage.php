@@ -93,6 +93,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       -moz-user-select: none;
       user-select: none;
     }
+    
+    .container {
+      overflow: hidden;
+    }
+
+    .container img {
+      object-fit: cover;
+    }
 
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
@@ -107,13 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="container">
     <main>
       <div class="py-5 text-center">
+      <img class="mx-auto mb-4" src="assets/img/report_header1.jpg" alt="" width="100%" height="250px"><br><br>
         <h2>Damage Report Form</h2>
         <p class="lead"></p>
       </div>
 
       <div class=" row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-          <img src="assets/img/features-3.jpg" alt="" style="width: 450px; height: 450px">
+          <img src="assets/img/features-3.jpg" alt="" width=450px height=450px>
         </div>
 
         <div class="col-md-7 col-lg-8">
@@ -183,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <div class="col-12">
                 <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
-                <input type="text" name="description" class="form-control" id="description" placeholder="Description of the damage">
+                <textarea name="description" class="form-control" id="description" placeholder="Description of the damage"></textarea>
               </div>
 
               <hr class="my-4">
