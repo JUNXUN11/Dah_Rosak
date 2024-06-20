@@ -50,6 +50,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['name'] = $row['username'];
 
+                // Set cookies with a 30-day expiration time
+                setcookie('email', $row['email'], time() + (86400 * 30), "/");
+                setcookie('id', $row['id'], time() + (86400 * 30), "/");
+                setcookie('role', $row['role'], time() + (86400 * 30), "/");
+                setcookie('name', $row['username'], time() + (86400 * 30), "/");
+                
                 // Redirect based on the role
                 if ($row['role'] === 'admin') {
                     header("Location: admin.php");

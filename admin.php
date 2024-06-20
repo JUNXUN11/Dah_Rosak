@@ -3,6 +3,16 @@
    session_start();
    include "db_conn.php";
   
+   // Check if cookies are set
+    if (!isset($_COOKIE['username']) || !isset($_COOKIE['role'])) {
+        header("Location: login.php");
+        exit();
+    }
+
+    // Get user details from cookies
+    $username = $_COOKIE['username'];
+    $role = $_COOKIE['role'];
+
    //query
    $sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date
         FROM damage_reports dr
