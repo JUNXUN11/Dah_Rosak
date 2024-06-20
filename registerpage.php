@@ -53,12 +53,12 @@
                       </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <input type="submit" value="Register" name="register" class="btn btn-warning btn-lg text-light my-2 py-3" style="width:100% ; border-radius: 30px; font-weight:600;" style="border-radius:25px ;" />
+                      <input type="submit" value="Register" name="register" class="btn btn-primary btn-lg text-light my-2 py-3" style="width:100% ; border-radius: 30px; font-weight:600;" style="border-radius:25px ;" />
                     </div>
 
                     
                   </form>
-                  <p align="center">i have already account <a href="loginpage.php" class="text-warning" style="font-weight:600; text-decoration:none;">Login</a></p>
+                  <p align="center">i have already account <a href="loginpage.php" class="text-primary" style="font-weight:600; text-decoration:none;">Login</a></p>
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
