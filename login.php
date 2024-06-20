@@ -56,6 +56,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 setcookie('role', $row['role'], time() + (86400 * 30), "/");
                 setcookie('name', $row['username'], time() + (86400 * 30), "/");
                 
+                if(!isset($_COOKIE[$_SESSION['name']])) {
+                    echo "Cookie named '" . $_SESSION['name'] . "' is not set!";
+                } else {
+                    echo "Cookie '" . $_SESSION['name'] . "' is set!<br>";
+                    echo "Value is: " . $_COOKIE[$_SESSION['name']];
+                }
+
                 // Redirect based on the role
                 if ($row['role'] === 'admin') {
                     header("Location: admin.php");
