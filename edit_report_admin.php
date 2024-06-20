@@ -138,7 +138,7 @@ mysqli_close($conn);
                 <div class="modal-body">Are you sure you want to delete this report?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="edit_report.php?id=<?php echo $id; ?>" method="POST" style="display:inline;">
+                    <form action="edit_report_admin.php?id=<?php echo $id; ?>" method="POST" style="display:inline;">
                         <button type="submit" name="confirm_delete" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
@@ -159,7 +159,7 @@ mysqli_close($conn);
                 <div class="modal-body">Are you sure you want to update the status of this report?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="edit_report.php?id=<?php echo $id; ?>" method="POST" style="display:inline;">
+                    <form action="edit_report_admin.php?id=<?php echo $id; ?>" method="POST" style="display:inline;">
                         <input type="hidden" name="status" id="modal-status">
                         <button type="submit" name="confirm_update" class="btn btn-primary">Update</button>
                     </form>

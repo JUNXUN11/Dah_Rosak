@@ -179,7 +179,7 @@
                                             </td>
                                             
                                             <td>
-                                                <a class='btn btn-primary btn-sm text-center' href='edit_report.php?id=<?php echo $damage['id']; ?>'>Edit</a> 
+                                                <a class='btn btn-primary btn-sm text-center' href='edit_report_admin.php?id=<?php echo $damage['id']; ?>'>Edit</a> 
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
