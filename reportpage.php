@@ -91,6 +91,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         font-size: 3.5rem;
       }
     }
+
+    @media (max-width: 768px) {
+      .exclude-in-min-width {
+        display: none;
+      }
+    }
   </style>
 </head>
 
@@ -106,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-          <img src="assets/img/features-3.jpg" alt="" width=450px height=400px>
+          <img class="exclude-in-min-width" src="assets/img/features-3.jpg" alt="" width=450px height=400px>
         </div>
 
         <div class="col-md-7 col-lg-8">
