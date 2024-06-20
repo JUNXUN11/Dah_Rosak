@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Vesperr Bootstrap Template</title>
+  <title>Dah Rosak</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -27,31 +27,21 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Vesperr
-  * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
-  * Updated: Jun 06 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="home.php" class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt="Vesperr Logo"> -->
-        <h1 class="sitename">Vesperr</h1>
+      <a href="index.php#hero" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Dah Rosak</h1>
       </a>
 
       <nav id="navmenu" class="navmenu me-4">
         <ul>
-          <li><a href="index.php">Home</a></li>
-          <li><a href="index.html#about">About</a></li>
-          <li><a href="index.html#services">Services</a></li>         
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="index.php#hero">Home</a></li>
+          <li><a href="index.php#services">Services</a></li>         
+          <li><a href="index.php#contact">Contact</a></li>
           <li class="dropdown"><i class="btn-getstarted btn-sm bi bi-person-circle"></i>
             <ul>
               <li><a href="profile.php">Profile</a></li>

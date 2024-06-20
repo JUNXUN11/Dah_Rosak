@@ -15,6 +15,11 @@
   height: auto;
 }
 
+.fixed-height-img {
+  height: 500px !important; // Set fixed height
+  width: 100%; // Ensure the image takes full width of its container
+  object-fit: cover; // Cover the area without distortion
+}
 
 // Retina image
 //
