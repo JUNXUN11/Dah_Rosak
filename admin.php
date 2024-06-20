@@ -400,7 +400,10 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2024</span>
+                        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
+                        <div class="credits">
+                            Designed by PowerPuff GIRLS
+                        </div>
                     </div>
                 </div>
             </footer>
