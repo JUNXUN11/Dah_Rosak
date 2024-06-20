@@ -199,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <hr class="my-4">
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="confirmSubmission()">Continue</button>
+                <button class="w-100 btn btn-primary btn-lg" onclick="confirmSubmission()">Continue</button>
               </div>
             </div>
           </form>
@@ -210,25 +210,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br><br><br><br>
 
     <footer id="footer" class="footer">
-      <div class="container">
-        <div class="copyright text-center">
-          <p>© <span>Copyright</span> <strong class="px-1 sitename">Vesperr</strong> <span>All Rights Reserved</span></p>
-        </div>
-        <div class="social-links d-flex justify-content-center">
-          <a href=""><i class="bi bi-twitter"></i></a>
-          <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
-        </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you've purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
       </div>
-    </footer>
+      <div class="credits">
+        Designed by PowerPuff GIRLS
+      </div>
+    </div>
+
+  </footer>
 
   </div>
 
