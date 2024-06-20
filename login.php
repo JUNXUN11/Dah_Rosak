@@ -52,15 +52,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
                 // Set cookies with a 30-day expiration time
                 setcookie('email', $row['email'], time() + (86400 * 30), "/");
-                setcookie('id', $row['id'], time() + (86400 * 30), "/");
-                setcookie('role', $row['role'], time() + (86400 * 30), "/");
-                setcookie('name', $row['username'], time() + (86400 * 30), "/");
                 
-                if(!isset($_COOKIE[$_SESSION['name']])) {
-                    echo "Cookie named '" . $_SESSION['name'] . "' is not set!";
+                if(!isset($_COOKIE['email'])) {
+                    echo "Cookie named '" . 'email' . "' is not set!";
                 } else {
-                    echo "Cookie '" . $_SESSION['name'] . "' is set!<br>";
-                    echo "Value is: " . $_COOKIE[$_SESSION['name']];
+                    echo "Cookie '" . 'email' . "' is set!<br>";
+                    echo "Value is: " . $email;
                 }
 
                 // Redirect based on the role
