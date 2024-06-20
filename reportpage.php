@@ -107,7 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="container">
     <main>
       <div class="py-5 text-center">
-        <img class="mx-auto mb-4" src="assets/img/report_header1.jpg" alt="" width="100%" height="250"><br><br>
         <h2>Damage Report Form</h2>
         <p class="lead"></p>
       </div>
