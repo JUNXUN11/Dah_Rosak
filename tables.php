@@ -82,7 +82,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Reports</span></a>
             </li>
 
             <!-- Divider -->
@@ -120,16 +120,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Reports</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -199,11 +194,11 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                    <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
-                    <div class="credits">
-                        Designed by PowerPuff GIRLS
+                        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
+                        <div class="credits">
+                            Designed by PowerPuff GIRLS
+                        </div>
                     </div>
-                </div>
                 </div>
             </footer>
             <!-- End of Footer -->
