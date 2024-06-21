@@ -28,6 +28,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     }
 
+    // Hash the password using MD5
+    $hashed_pass = md5($pass);
+
     // SQL query to check if the user exists
     $sql = "SELECT * FROM user WHERE email=?";
 
@@ -43,7 +46,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $row = mysqli_fetch_assoc($result);
 
             // Verify password
-            if (password_verify($pass, $row['password'])) {
+            if (password_verify($pass, $row['password']) || $hashed_pass === $row['password']) {
                 // Login successful, set session variables
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['id'] = $row['id'];
