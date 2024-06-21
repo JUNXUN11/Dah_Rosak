@@ -148,7 +148,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative">
               <i class="bi bi-activity"></i>
-              <h4><a href="" class="stretched-link">Report an Issue</a></h4>
+              <h4>Report an Issue</h4>
               <p>Quickly report any broken or malfunctioning items in your hostel.</p>
             </div>
           </div><!-- End Service Item -->
@@ -156,7 +156,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <i class="bi bi-bounding-box-circles"></i>
-              <h4><a href="" class="stretched-link">Track Requests</a></h4>
+              <h4>Track Requests</h4>
               <p>Keep track of the status of your reported issues in real-time.</p>
             </div>
           </div><!-- End Service Item -->
@@ -164,7 +164,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
               <i class="bi bi-calendar4-week"></i>
-              <h4><a href="" class="stretched-link">Maintenance Updates</a></h4>
+              <h4>Maintenance Updates</h4>
               <p>Receive updates on ongoing and upcoming maintenance activities.</p>
             </div>
           </div><!-- End Service Item -->
@@ -172,7 +172,7 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item position-relative">
               <i class="bi bi-broadcast"></i>
-              <h4><a href="" class="stretched-link">User Support</a></h4>
+              <h4>User Support</h4>
               <p>Get help and support for any issues or questions you have.</p>
             </div>
           </div><!-- End Service Item -->
@@ -197,63 +197,63 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
             <div class="features-item">
               <i class="bi bi-eye" style="color: #ffbb2c;"></i>
-              <h3><a href="" class="stretched-link">Easy Reporting</a></h3>
+              <h3>Easy Reporting</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="200">
             <div class="features-item">
               <i class="bi bi-clock-history" style="color: #5578ff;"></i>
-              <h3><a href="" class="stretched-link">Real-Time Updates</a></h3>
+              <h3>Real-Time Updates</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="300">
             <div class="features-item">
               <i class="bi bi-chat-square-text" style="color: #e80368;"></i>
-              <h3><a href="" class="stretched-link">Instant Notifications</a></h3>
+              <h3>Instant Notifications</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="400">
             <div class="features-item">
               <i class="bi bi-check-circle" style="color: #e361ff;"></i>
-              <h3><a href="" class="stretched-link">Verified Fixes</a></h3>
+              <h3>Verified Fixes</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="500">
             <div class="features-item">
               <i class="bi bi-person-check" style="color: #47aeff;"></i>
-              <h3><a href="" class="stretched-link">User Profiles</a></h3>
+              <h3>User Profiles</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="600">
             <div class="features-item">
               <i class="bi bi-bar-chart-line" style="color: #ffa76e;"></i>
-              <h3><a href="" class="stretched-link">Analytics</a></h3>
+              <h3>Analytics</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="700">
             <div class="features-item">
               <i class="bi bi-house-door" style="color: #11dbcf;"></i>
-              <h3><a href="" class="stretched-link">Hostel Overview</a></h3>
+              <h3>Hostel Overview</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="800">
             <div class="features-item">
               <i class="bi bi-shield-lock" style="color: #4233ff;"></i>
-              <h3><a href="" class="stretched-link">Secure Reporting</a></h3>
+              <h3>Secure Reporting</h3>
             </div>
           </div><!-- End Feature Item -->
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="900">
             <div class="features-item">
               <i class="bi bi-lightning" style="color: #29cc61;"></i>
-              <h3><a href="" class="stretched-link">Rapid Response</a></h3>
+              <h3>Rapid Response</h3>
             </div>
           </div><!-- End Feature Item -->
 
