@@ -1,5 +1,5 @@
 <?php 
-// Q1: Start the session
+// Q1: Start the session huhu
    session_start();
    include "db_conn.php";
   
