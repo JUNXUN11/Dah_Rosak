@@ -139,8 +139,7 @@ $conn->close();
         <div class="main-body">
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">User Profile</li>
                 </ol>
             </nav>
@@ -170,7 +169,7 @@ $conn->close();
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover">
-                                        <thead>
+                                        <thead class="text-center">
                                             <tr>
                                                 <th>Location</th>
                                                 <th>Floor</th>
@@ -181,14 +180,14 @@ $conn->close();
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-center">
                                             <tr>
                                                 <td><?php echo htmlspecialchars($damage['location']); ?></td>
                                                 <td><?php echo htmlspecialchars($damage['floor']); ?></td>
                                                 <td><?php echo htmlspecialchars($damage['roomNum']); ?></td>
                                                 <td><?php echo htmlspecialchars($damage['damage_type']); ?></td>
                                                 <td><?php echo htmlspecialchars($damage['reg_date']); ?></td>
-                                                <td><?php echo $damage['status'] == 0 ? 'Not fixed' : 'Fixed'; ?></td>
+                                                <td><?php echo $damage['status'] == 0 ? 'Not fixed' : '<strong>Fixed</strong>'; ?></td>
                                                 <td>
                                                     <a class="btn btn-primary btn-sm" href="edit_report_user.php?id=<?php echo $damage['id']; ?>"> View</a>
                                                 </td>

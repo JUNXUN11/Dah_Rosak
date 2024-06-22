@@ -6,14 +6,30 @@ if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
 
     // Fetch the existing report details
-    $sql = "SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
-            FROM damage_reports dr
-            INNER JOIN locations l ON dr.location_id = l.id
-            INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
-            WHERE dr.id = $id";
-    $result = mysqli_query($conn, $sql);
-    $report = mysqli_fetch_assoc($result);
-    mysqli_free_result($result);
+    $stmt = $conn->prepare("SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, 
+                            dt.type AS damage_type, dr.description, dr.reg_date, dr.status, f.file_name AS imageName
+                            FROM damage_reports dr
+                            INNER JOIN locations l ON dr.location_id = l.id
+                            INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
+                            LEFT JOIN files f ON dr.id = f.report_id AND f.file_type = 'picture'
+                            WHERE dr.id = ?");
+    
+    if ($stmt === false) {
+        die("Error preparing the statement: " . $conn->error);
+    }
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        $report = $result->fetch_assoc();
+        $imagePath = 'uploads/' . $report['imageName']; // Construct the file path dynamically
+    } else {
+        header("Location: tables.php?message=Report+not+found");
+        exit();
+    }
+    $stmt->close();
 
     // Update report status
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['confirm_update'])) {
@@ -42,7 +58,6 @@ if (isset($_GET['id'])) {
 
 mysqli_close($conn);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,6 +123,16 @@ mysqli_close($conn);
                     <tr>
                         <th>Status</th>
                         <td><?php echo $report['status'] == 0 ? 'Not fixed' : 'Fixed'; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Image Uploaded</th>
+                        <td>
+                            <?php if (!empty($report['imageName'])): ?>
+                                <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="Damage Image" style="max-width: 100%; height: auto;">
+                            <?php else: ?>
+                                No image uploaded.
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 </table>
                 <form action="edit_report.php?id=<?php echo $id; ?>" method="POST">

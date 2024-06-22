@@ -86,6 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </style>
 </head>
 
+<?php include'header.php'?>
+
 <body class="bg-light">
 
   <div class="container">
@@ -104,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">Personal Information</h4>
 
-          <form method="post" action="insert_report.php" class="needs-validation" novalidate>
+          <form method="post" action="insert_report.php" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="row g-3">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">Name</label>
@@ -169,6 +171,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
                <textarea name="description" class="form-control" id="description" rows="5" placeholder="Description of the damage"></textarea>
               </div>
+
+              <div class="col-12">
+                <label for="picture" class="form-label">Upload Picture <span class="text-muted">(Optional)</span></label>
+                <input type="file" name="picture" class="form-control" id="picture" accept="image/*">
+              </div>
+              
 
 
               <hr class="my-4">

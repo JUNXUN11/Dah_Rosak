@@ -6,10 +6,11 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Prepare the SQL statement
-    $stmt = $conn->prepare("SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
+    $stmt = $conn->prepare("SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status, f.file_name AS image_path
                             FROM damage_reports dr
                             INNER JOIN locations l ON dr.location_id = l.id
                             INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
+                            LEFT JOIN files f ON dr.id = f.report_id AND f.file_type = 'picture'
                             WHERE dr.id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -17,8 +18,8 @@ if (isset($_GET['id'])) {
 
     if ($result && $result->num_rows > 0) {
         $report = $result->fetch_assoc();
+        $imagePath = $report['image_path'];
     } else {
-        // Handle case where no report is found
         header("Location: tables.php?message=Report+not+found");
         exit();
     }
@@ -60,6 +61,9 @@ $conn->close();
         }
     </style>
 </head>
+
+<?php include 'header.php'?>
+
 <body>
     <div class="container">
         <br><br>
@@ -112,6 +116,16 @@ $conn->close();
                             <th>Damage Description</th>
                             <td><textarea class="form-control" name="description" rows="5"><?php echo htmlspecialchars($report['description']); ?></textarea></td>
                         </tr>
+                        <tr>
+                            <th>Image Uploaded</th>
+                            <td>
+                                <?php if (!empty($imagePath)): ?>
+                                    <img src="uploads/<?php echo htmlspecialchars($imagePath); ?>" alt="Damage Image" style="max-width: 100%; height: auto;">
+                                <?php else: ?>
+                                    No image uploaded.
+                                <?php endif; ?>
+                            </td>
+                        </tr>
                         <input type="hidden" name="id" value="<?php echo $report['id']; ?>">
                     </table>
                     <div class="button-container">
@@ -124,7 +138,6 @@ $conn->close();
             </div>
         </div>
     </div>
-
 
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
