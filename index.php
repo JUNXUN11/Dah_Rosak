@@ -88,7 +88,11 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
                 <div class="stats-item d-flex">
                   <i class="bi bi-emoji-smile flex-shrink-0"></i>
                   <div>
-                    <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+                    <span data-purecounter-start="0" data-purecounter-end="
+                    $sql_solved_reports = 'SELECT COUNT(id) AS solved_reports FROM damage_reports WHERE status = 1';
+                    $solved_reports_result = mysqli_query($conn, $sql_solved_reports);
+                    $solved_reports = mysqli_fetch_assoc($solved_reports_result)['solved_reports'];" 
+                    data-purecounter-duration="1" class="purecounter"></span>
                     <p><strong>Issue Resolved</strong> <span>Successfully fixed</span></p>
                   </div>
                 </div>
@@ -108,7 +112,11 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
                 <div class="stats-item d-flex">
                   <i class="bi bi-headset flex-shrink-0"></i>
                   <div>
-                    <span data-purecounter-start="0" data-purecounter-end="301" data-purecounter-duration="1" class="purecounter"></span>
+                    <span data-purecounter-start="0" data-purecounter-end=" 
+                    $sql_total_reports = 'SELECT COUNT(id) AS total_reports FROM damage_reports';
+                    $total_reports_result = mysqli_query($conn, $sql_total_reports);
+                    $total_reports = mysqli_fetch_assoc($total_reports_result)['total_reports'];" 
+                    data-purecounter-duration="1" class="purecounter"></span>
                     <p><strong>Total Reports</strong> <span>submitted by students</span></p>
                   </div>
                 </div>
