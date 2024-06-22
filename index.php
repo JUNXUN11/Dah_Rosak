@@ -10,6 +10,12 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
   $email = $_SESSION["email"];
   $id = $_SESSION["id"];
   $name = $_SESSION["name"];
+
+  //set 1h cookie
+  setcookie("email", $email, time() + (60 * 60 * 1 ), "/"); 
+  setcookie("id", $id, time() + (60 * 60 * 24 * 1), "/");
+  setcookie("name", $name, time() + (60 * 60 * 1), "/"); 
+  
 ?>
 
 <!DOCTYPE html>

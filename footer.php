@@ -33,3 +33,14 @@
   ======================================================== -->
 </head>
 
+<footer id="footer" class="footer">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="credits">
+        Designed by PowerPuff GIRLS
+      </div>
+    </div>
+</footer>

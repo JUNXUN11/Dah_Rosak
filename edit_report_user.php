@@ -3,39 +3,44 @@ session_start();
 include "db_conn.php";
 
 if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    $id = $_GET['id'];
 
-    // Fetch the existing report details
-    $sql = "SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
-            FROM damage_reports dr
-            INNER JOIN locations l ON dr.location_id = l.id
-            INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
-            WHERE dr.id = $id";
-    $result = mysqli_query($conn, $sql);
-    if ($result && mysqli_num_rows($result) > 0) {
-        $report = mysqli_fetch_assoc($result);
+    // Prepare the SQL statement
+    $stmt = $conn->prepare("SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
+                            FROM damage_reports dr
+                            INNER JOIN locations l ON dr.location_id = l.id
+                            INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
+                            WHERE dr.id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        $report = $result->fetch_assoc();
     } else {
         // Handle case where no report is found
         header("Location: tables.php?message=Report+not+found");
         exit();
     }
-    mysqli_free_result($result);
+    $stmt->close();
 
     // Delete report
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['confirm_delete'])) {
-        $delete_sql = "DELETE FROM damage_reports WHERE id = $id";
-        if (mysqli_query($conn, $delete_sql)) {
+        $delete_stmt = $conn->prepare("DELETE FROM damage_reports WHERE id = ?");
+        $delete_stmt->bind_param("i", $id);
+        if ($delete_stmt->execute()) {
             header("Location: tables.php?message=Report+deleted+successfully");
         } else {
-            echo "Error deleting report: " . mysqli_error($conn);
+            echo "Error deleting report: " . $conn->error;
         }
+        $delete_stmt->close();
     }
 } else {
     header("Location: tables.php");
     exit();
 }
 
-mysqli_close($conn);
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +69,7 @@ mysqli_close($conn);
                 <h6 class="m-0 font-weight-bold text-primary">Report Details</h6>
             </div>
             <div class="card-body">
-                <form action="update_report.php" method="POST">
+                <form id="editForm" action="update_report.php" method="POST">
                     <table class="table table-bordered">
                         <tr>
                             <th>Name</th>
@@ -105,21 +110,39 @@ mysqli_close($conn);
                         </tr>
                         <tr>
                             <th>Damage Description</th>
-                            <td><input type="text" class="form-control" name="description" value="<?php echo htmlspecialchars($report['description']); ?>"></td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td><input type="text" class="form-control" name="status" value="<?php echo htmlspecialchars($report['status']); ?>"></td>
+                            <td><textarea class="form-control" name="description" rows="5"><?php echo htmlspecialchars($report['description']); ?></textarea></td>
                         </tr>
                         <input type="hidden" name="id" value="<?php echo $report['id']; ?>">
                     </table>
                     <div class="button-container">
-                        <button type="submit" name="confirm_update" class="btn btn-primary">Update</button>
-                        <form action="edit_report_user.php?id=<?php echo $id; ?>" method="POST" style="display:inline;">
-                            <button type="submit" name="confirm_delete" class="btn btn-danger">Delete</button>
-                        </form>
+                    <form action=update_report.php?id=<?php echo $id; ?> method="POST" style="display:inline;">
+                        <button class="btn btn-primary" type="submit" name="confirm_update">Update</button>
+                    </form>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete this report?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="delete_report-user.php?id=<?php echo $id; ?>" method="POST" style="display:inline;">
+                        <button class="btn btn-danger" type="submit" name="confirm_delete">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
