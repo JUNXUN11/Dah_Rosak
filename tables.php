@@ -6,7 +6,7 @@
    //query
 
 
-   $sql = 'SELECT dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date
+   $sql = 'SELECT dr.id , dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
         FROM damage_reports dr
         INNER JOIN locations l ON dr.location_id = l.id
         INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
@@ -82,7 +82,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Reports</span></a>
             </li>
 
             <!-- Divider -->
@@ -120,16 +120,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Reports</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -138,23 +133,27 @@
                                             <th>Name</th>
                                             <th>Telephone</th>
                                             <th>Location</th>
-                                            <th>Floor</th>
-                                            <th>Room Num</th>
+                                            <th style="width: 10px;">Floor</th>
+                                            <th style="width: 10px;">Room Num</th>
                                             <th>Damage Type</th>
                                             <th>Damage Description</th>
                                             <th>Reg Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
+                                        <th>Name</th>
                                             <th>Telephone</th>
                                             <th>Location</th>
-                                            <th>Floor</th>
-                                            <th>Room Num</th>
+                                            <th style="width: 10px;">Floor</th>
+                                            <th style="width: 10px;">Room Num</th>
                                             <th>Damage Type</th>
                                             <th>Damage Description</th>
                                             <th>Reg Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -168,6 +167,15 @@
                                             <td><?php echo htmlspecialchars($damage['damage_type']); ?></td>
                                             <td><?php echo htmlspecialchars($damage['description']); ?></td>
                                             <td><?php echo htmlspecialchars($damage['reg_date']); ?></td>
+                                            <td>
+                                                <?php 
+                                                    echo $damage['status'] == 0 ? 'Not fixed' : 'Fixed'; 
+                                                ?>
+                                            </td>
+                                            
+                                            <td>
+                                                <a class='btn btn-primary btn-sm text-center' href='edit_report_admin.php?id=<?php echo $damage['id']; ?>'>Edit</a> 
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                     </tbody>
@@ -186,7 +194,10 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
+                        <div class="credits">
+                            Designed by PowerPuff GIRLS
+                        </div>
                     </div>
                 </div>
             </footer>

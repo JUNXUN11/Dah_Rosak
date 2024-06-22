@@ -77,10 +77,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       -moz-user-select: none;
       user-select: none;
     }
+    
+    .container {
+      overflow: hidden;
+    }
+
+    .container img {
+      object-fit: cover;
+    }
 
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .exclude-in-min-width {
+        display: none;
       }
     }
   </style>
@@ -91,14 +105,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="container">
     <main>
       <div class="py-5 text-center">
-        <img class="mx-auto mb-4" src="assets/img/report_header1.jpg" alt="" width="100%" height="250"><br><br>
+      <img class="mx-auto mb-4" src="assets/img/report_header1.jpg" alt="" width="100%" height="250px"><br><br>
         <h2>Damage Report Form</h2>
         <p class="lead"></p>
       </div>
 
       <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-          <img src="assets/img/features-3.jpg" alt="" style="width: 450px; height: 450px">
+          <img class="exclude-in-min-width" src="assets/img/features-3.jpg" alt="" width=450px height=400px>
         </div>
 
         <div class="col-md-7 col-lg-8">
@@ -167,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <div class="col-12">
                 <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
-                <input type="text" name="description" class="form-control" id="description" placeholder="Description of the damage">
+                <textarea name="description" class="form-control" id="description" placeholder="Description of the damage"></textarea>
               </div>
 
               <hr class="my-4">
@@ -191,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <hr class="my-4">
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="confirmSubmission()">Continue</button>
+                <button class="w-100 btn btn-primary btn-lg" onclick="confirmSubmission()">Continue</button>
               </div>
             </div>
           </form>
@@ -202,25 +216,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br><br><br><br>
 
     <footer id="footer" class="footer">
-      <div class="container">
-        <div class="copyright text-center">
-          <p>© <span>Copyright</span> <strong class="px-1 sitename">Vesperr</strong> <span>All Rights Reserved</span></p>
-        </div>
-        <div class="social-links d-flex justify-content-center">
-          <a href=""><i class="bi bi-twitter"></i></a>
-          <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
-        </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you've purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
       </div>
-    </footer>
+      <div class="credits">
+        Designed by PowerPuff GIRLS
+      </div>
+    </div>
+
+  </footer>
 
   </div>
 

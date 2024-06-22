@@ -2,8 +2,8 @@
 session_start();
 include("db_conn.php");
 
-// Check if email, password, and role are set in POST request
-if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['selected_role'])) {
+// Check if email and password are set in POST request
+if (isset($_POST['email']) && isset($_POST['password'])) {
 
     // Function to validate user input
     function validate($data) {
@@ -15,7 +15,6 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['selecte
 
     $email = validate($_POST['email']);
     $pass = validate($_POST['password']);
-    $role = validate($_POST['selected_role']);
 
     // Check if email or password is empty
     if (empty($email) && empty($pass)) {
@@ -27,10 +26,10 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['selecte
     } else if (empty($pass)) {
         header("Location: loginpage.php?error=Password is required");
         exit();
-    } else if (empty($role)) {
-        header("Location: loginpage.php?error=Role is required");
-        exit();
     }
+
+    // Hash the password using MD5
+    $hashed_pass = md5($pass);
 
     // SQL query to check if the user exists
     $sql = "SELECT * FROM user WHERE email=?";
@@ -46,34 +45,37 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['selecte
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
 
-            // Check password based on role
-            $passwordVerified = false;
-            if ($role === 'user') {
-                $passwordVerified = password_verify($pass, $row['password']);
-            } else if ($role === 'admin' && $pass === $row['password']) {
-                $passwordVerified = true;
-            }
-
-            if ($passwordVerified && $role === $row['role']) {
+            // Verify password
+            if (password_verify($pass, $row['password']) || $hashed_pass === $row['password']) {
                 // Login successful, set session variables
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['name'] = $row['username'];
 
+                // Set cookies with a 30-day expiration time
+                setcookie('email', $row['email'], time() + (86400 * 30), "/");
+                
+                if(!isset($_COOKIE['email'])) {
+                    echo "Cookie named '" . 'email' . "' is not set!";
+                } else {
+                    echo "Cookie '" . 'email' . "' is set!<br>";
+                    echo "Value is: " . $email;
+                }
+
                 // Redirect based on the role
-                if ($role === 'admin') {
+                if ($row['role'] === 'admin') {
                     header("Location: admin.php");
-                } else if ($role === 'user') {
+                } else {
                     header("Location: index.php");
                 }
                 exit();
             } else {
-                header("Location: loginpage.php?error=Incorrect Username, Password, or Role");
+                header("Location: loginpage.php?error=Incorrect Email or Password");
                 exit();
             }
         } else {
-            header("Location: loginpage.php?error=Incorrect Username, Password, or Role");
+            header("Location: loginpage.php?error=Incorrect Email or Password");
             exit();
         }
     } else {
@@ -84,5 +86,4 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['selecte
     header("Location: loginpage.php?error=All fields are required");
     exit();
 }
-
-
+?>
