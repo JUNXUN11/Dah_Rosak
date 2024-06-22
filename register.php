@@ -20,7 +20,7 @@ if(isset($_POST['register'])){
         alert(
             'Registration Successful! Please login to continue.'
         );
-        window.location.href='index.php';
+        window.location.href='login.php';
         </script>";   
     }
     else{

@@ -4,7 +4,7 @@
 include 'db_conn.php';
 
 // Q2: sql to create table
-$sql = "CREATE TABLE user(
+$sql = "CREATE TABLE user (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,

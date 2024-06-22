@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 // Check if user is logged in
@@ -28,7 +27,7 @@ $description = $_POST['description'];
 mysqli_begin_transaction($conn);
 
 try {
-	$status = 0 ;
+    $status = 0;
 
     // Insert into locations table
     $locationSql = "INSERT INTO locations (name) VALUES (?)";
@@ -55,12 +54,64 @@ try {
     mysqli_stmt_bind_param($damageReportStmt, "sssisssssi", $userEmail, $firstName, $tel, $locationId, $floor, $damageTypeId, $roomNum, $description, $userId, $status);
     mysqli_stmt_execute($damageReportStmt);
 
+    // Get the auto-generated ID from the damage_reports table
+    $reportId = mysqli_insert_id($conn);
+
+    // Handle file uploads
+    $targetDir = "uploads/";
+
+    // Picture upload
+    if (!empty($_FILES["picture"]["name"])) {
+        $pictureFileName = basename($_FILES["picture"]["name"]);
+        $targetFilePath = $targetDir . $pictureFileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+        // Check if file is a valid image type
+        $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+        if (in_array($fileType, $allowTypes)) {
+            if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFilePath)) {
+                // Insert picture file information into files table
+                $fileSql = "INSERT INTO files (report_id, file_name, file_type) VALUES (?, ?, 'picture')";
+                $fileStmt = mysqli_prepare($conn, $fileSql);
+                mysqli_stmt_bind_param($fileStmt, "is", $reportId, $pictureFileName);
+                mysqli_stmt_execute($fileStmt);
+            } else {
+                throw new Exception("Error uploading picture.");
+            }
+        } else {
+            throw new Exception("Only JPG, JPEG, PNG, and GIF files are allowed.");
+        }
+    }
+
+    // Video upload
+    if (!empty($_FILES["video"]["name"])) {
+        $videoFileName = basename($_FILES["video"]["name"]);
+        $targetFilePath = $targetDir . $videoFileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+        // Check if file is a valid video type
+        $allowTypes = array('mp4', 'avi', 'mov', 'wmv');
+        if (in_array($fileType, $allowTypes)) {
+            if (move_uploaded_file($_FILES["video"]["tmp_name"], $targetFilePath)) {
+                // Insert video file information into files table
+                $fileSql = "INSERT INTO files (report_id, file_name, file_type) VALUES (?, ?, 'video')";
+                $fileStmt = mysqli_prepare($conn, $fileSql);
+                mysqli_stmt_bind_param($fileStmt, "is", $reportId, $videoFileName);
+                mysqli_stmt_execute($fileStmt);
+            } else {
+                throw new Exception("Error uploading video.");
+            }
+        } else {
+            throw new Exception("Only MP4, AVI, MOV, and WMV files are allowed.");
+        }
+    }
+
     // Commit transaction if all queries succeed
     mysqli_commit($conn);
     $successMessage = "Damage report added successfully!";
     echo "<script>alert('$successMessage'); window.location.href = 'index.php';</script>";
     exit;
-    
+
 } catch (Exception $e) {
     // Rollback transaction if any query fails
     mysqli_rollback($conn);
@@ -69,5 +120,4 @@ try {
 
 // Close connection
 mysqli_close($conn);
-
 ?>

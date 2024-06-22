@@ -104,18 +104,14 @@ $conn->close();
     </style>
 </head>
 
+    <section></section>
 <body>
-    
-    <header>
-        <section></section>
-    </header>
 
     <div class="container">
         <div class="main-body">
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+                    <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">User Profile</li>
                 </ol>
             </nav>

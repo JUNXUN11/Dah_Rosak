@@ -86,6 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </style>
 </head>
 
+<?php include'header.php'?>
+
 <body class="bg-light">
 
   <div class="container">
@@ -104,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">Personal Information</h4>
 
-          <form method="post" action="insert_report.php" class="needs-validation" novalidate>
+          <form method="post" action="insert_report.php" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="row g-3">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">Name</label>
@@ -166,9 +168,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
 
               <div class="col-12">
-                <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
-                <input type="text" name="description" class="form-control" id="description" placeholder="Description of the damage">
+               <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
+               <textarea name="description" class="form-control" id="description" rows="5" placeholder="Description of the damage"></textarea>
               </div>
+
+              <div class="col-12">
+                <label for="picture" class="form-label">Upload Picture <span class="text-muted">(Optional)</span></label>
+                <input type="file" name="picture" class="form-control" id="picture" accept="image/*">
+              </div>
+              
+
 
               <hr class="my-4">
 
@@ -201,26 +210,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <br><br><br><br>
 
-    <footer id="footer" class="footer">
-      <div class="container">
-        <div class="copyright text-center">
-          <p>© <span>Copyright</span> <strong class="px-1 sitename">Vesperr</strong> <span>All Rights Reserved</span></p>
-        </div>
-        <div class="social-links d-flex justify-content-center">
-          <a href=""><i class="bi bi-twitter"></i></a>
-          <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
-        </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you've purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-      </div>
-    </footer>
+    <?php include 'footer.php' ;?>
+
 
   </div>
 
@@ -272,6 +263,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 </body>
-
-</html>
-
