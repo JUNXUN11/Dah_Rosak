@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="row g-5">
       <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-          <img class="exclude-in-min-width" src="assets/img/features-3.jpg" alt="" width=450px height=400px>
+          <img src="assets/img/features-3.jpg" alt="" width=450px height=450px>
         </div>
 
         <div class="col-md-7 col-lg-8">
