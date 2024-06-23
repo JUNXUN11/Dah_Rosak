@@ -205,6 +205,8 @@ $conn->close();
         </div>
     </div>
 
+    <section></section>
+    <section></section>
 </body>
 
 <?php include 'footer.php'; ?>
