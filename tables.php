@@ -1,34 +1,29 @@
 <?php 
 // Q1: Start the session
-   session_start();
-   include "db_conn.php";
-  
-   //query
+session_start();
+include "db_conn.php";
 
-
-   $sql = 'SELECT dr.id , dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
+// query
+$sql = 'SELECT dr.id, dr.firstname, dr.telephone, l.name AS location, dr.floor, dr.roomNum, dt.type AS damage_type, dr.description, dr.reg_date, dr.status
         FROM damage_reports dr
         INNER JOIN locations l ON dr.location_id = l.id
         INNER JOIN damage_types dt ON dr.damage_type_id = dt.id
-        ORDER BY dr.reg_date';
+        ORDER BY dr.status ASC';
 
-   //get result
-   $result = mysqli_query($conn, $sql);
-  
-   //fetch in array form 
-   $damages = mysqli_fetch_all($result, MYSQLI_ASSOC);
-   
-   mysqli_free_result($result);
+// get result
+$result = mysqli_query($conn, $sql);
 
-   mysqli_close($conn);
+// fetch in array form 
+$damages = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+mysqli_free_result($result);
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,9 +34,7 @@
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -77,7 +70,6 @@
                     <span>Dashboard</span></a>
             </li>
 
-
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
                 <a class="nav-link" href="tables.html">
@@ -112,19 +104,20 @@
                         </button>
                     </form>
 
-                   
-
-                 <?php   include "admin-header.php";?>
+                    <?php include "admin-header.php"; ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Reports</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <p class="mb-4"></p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables </h6>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -144,7 +137,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        <th>Name</th>
+                                            <th>Name</th>
                                             <th>Telephone</th>
                                             <th>Location</th>
                                             <th style="width: 10px;">Floor</th>
@@ -172,12 +165,11 @@
                                                     echo $damage['status'] == 0 ? 'Not fixed' : 'Fixed'; 
                                                 ?>
                                             </td>
-                                            
                                             <td>
                                                 <a class='btn btn-primary btn-sm text-center' href='edit_report_admin.php?id=<?php echo $damage['id']; ?>'>Edit</a> 
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -194,10 +186,9 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
-                        <div class="credits">
-                            Designed by PowerPuff GIRLS
-                        </div>
+
+                        <span>Copyright &copy;</span>
+
                     </div>
                 </div>
             </footer>
@@ -213,8 +204,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-   
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
