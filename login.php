@@ -3,7 +3,7 @@ session_start();
 include("db_conn.php");
 
 // Check if email and password are set in POST request
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
 
     // Function to validate user input
     function validate($data) {
@@ -50,6 +50,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['name'] = $row['username'];
 
+                // Set cookies that expire in 30 days
+                setcookie("user_id", $row['id'], time() + (86400 * 30), "/");
+                setcookie("user_name", $row['username'], time() + (86400 * 30), "/");
+
                 // Redirect based on the role
                 if ($row['role'] === 'admin') {
                     header("Location: admin.php");
@@ -70,7 +74,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     }
 } else {
-    header("Location: loginpage.php?error=All fields are required");
+    // If the request is not a POST request, do nothing or redirect to the login page
+    header("Location: loginpage.php");
     exit();
 }
 ?>
