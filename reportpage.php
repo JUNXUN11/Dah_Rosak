@@ -77,14 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       -moz-user-select: none;
       user-select: none;
     }
-    
-    .container {
-      overflow: hidden;
-    }
-
-    .container img {
-      object-fit: cover;
-    }
 
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
@@ -100,25 +92,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </style>
 </head>
 
+<?php include'header.php'?>
+
 <body class="bg-light">
 
   <div class="container">
     <main>
       <div class="py-5 text-center">
-      <img class="mx-auto mb-4" src="assets/img/report_header1.jpg" alt="" width="100%" height="250px"><br><br>
+        <img class="mx-auto mb-4" src="assets/img/report_header1.jpg" alt="" width="100%" height="250"><br><br>
         <h2>Damage Report Form</h2>
         <p class="lead"></p>
       </div>
 
       <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-          <img class="exclude-in-min-width" src="assets/img/features-3.jpg" alt="" width=450px height=400px>
+          <img src="assets/img/features-3.jpg" alt="" style="width: 450px; height: 450px">
         </div>
 
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">Personal Information</h4>
 
-          <form method="post" action="insert_report.php" class="needs-validation" novalidate>
+          <form method="post" action="insert_report.php" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="row g-3">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">Name</label>
@@ -180,9 +174,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
 
               <div class="col-12">
-                <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
-                <textarea name="description" class="form-control" id="description" placeholder="Description of the damage"></textarea>
+               <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
+               <textarea name="description" class="form-control" id="description" rows="5" placeholder="Description of the damage"></textarea>
               </div>
+
+              <div class="col-12">
+                <label for="picture" class="form-label">Upload Picture <span class="text-muted">(Optional)</span></label>
+                <input type="file" name="picture" class="form-control" id="picture" accept="image/*">
+              </div>
+              
+
 
               <hr class="my-4">
 
@@ -215,18 +216,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <br><br><br><br>
 
-    <footer id="footer" class="footer">
+    <?php include 'footer.php' ;?>
 
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">PowerPuff GIRLS</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <div class="credits">
-        Designed by PowerPuff GIRLS
-      </div>
-    </div>
-
-  </footer>
 
   </div>
 
@@ -278,6 +269,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 </body>
-
-</html>
-

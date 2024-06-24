@@ -1,13 +1,21 @@
 <?php
 session_start();
 
-if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
-    ?>
+if (isset($_SESSION["id"]) && isset($_SESSION["email"])) {
+    $email = $_SESSION["email"];
+    $id = $_SESSION["id"];
+    $name = $_SESSION["name"];
+} elseif (isset($_COOKIE["user_id"]) && isset($_COOKIE["user_name"])) {
+    // Use cookie values if session is not set
+    $id = $_COOKIE["user_id"];
+    $name = $_COOKIE["user_name"];
+    $email = ""; // Email is not stored in cookie in this example
+} else {
+    // Redirect to login page if user is not logged in
+    header("Location: loginpage.php");
+    exit();
+}
 
-<?php 
-  $email = $_SESSION["email"];
-  $id = $_SESSION["id"];
-  $name = $_SESSION["name"];
 ?>
 
 <!DOCTYPE html>
@@ -637,10 +645,3 @@ if(isset($_SESSION["id"]) && isset($_SESSION["email"])){
 
 </html>
     
-    <?php
-}
-else{
-    header("Location: login.php");
-    exit();
-}
-?>

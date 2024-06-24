@@ -1,30 +1,24 @@
 <?php
 
-//Q1: call config.php to open connection to database before performing SELECT
+
 require_once ('db_conn.php');
 
-//Q2: access the fieldname id using POST or GET method?
-/*
-    POST method?
-    GET method?
-    review guest_list-s.php and see how are the fieldname id is passed to edit-guest-s.php
-*/
+
 $id = $_GET['id'];
 
 $sql = "SELECT * FROM user WHERE id = $id";
 $result = mysqli_query($conn, $sql);
-
-//Q3: perform retrieving data from table myguests according to fieldname id
-            
-            if (mysqli_num_rows($result) > 0) {
-            // output data of each row
-            while($row = mysqli_fetch_assoc($result)) 
-            {
-                //Q4: get all the fieldnames from the selected row
-                $firstname = $row['username'];
-                $email = $row['email'];               
-            }
-        }
+          
+    if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) 
+    {
+        //Q4: get all the fieldnames from the selected row
+        $firstname = $row['username'];
+        $email = $row['email'];   
+        $role = $row['role'];            
+    }
+}
 
 ?>
 
@@ -133,10 +127,10 @@ $result = mysqli_query($conn, $sql);
                                 </div>
                                 <hr><br><br>                    
                                 <div class="row">
-                                    <div class="col-sm-12 text-center">
-                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                                        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
-                                    </div>
+                                <div class="col-sm-12 text-center">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <input type="hidden" name="role" value="<?php echo htmlspecialchars($role); ?>">
+                                <button type="submit" class="btn btn-primary px-4">Save Changes</button>
                                 </div>
                             </div>
                         </div>
